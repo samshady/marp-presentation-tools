@@ -7,21 +7,12 @@ section {
   font-size: 24pt;
   line-height: 1.4;
   background-color: white;
+  background-image: url("https://raw.githubusercontent.com/samshady/marp-presentation-tools/main/uni_halle_logo.jpg");
+  background-repeat: no-repeat;
+  background-position: right 40px top 15px;
+  background-size: 100px auto;
   padding: 50px;
   overflow: hidden;
-}
-
-section::before {
-  content: "";
-  position: absolute;
-  top: 15px;
-  right: 40px;
-  width: 100px;
-  height: 54px;
-  background-image: url("https://raw.githubusercontent.com/samshady/marp-presentation-tools/main/uni_halle_logo.jpg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right top;
 }
 
 header,
@@ -150,10 +141,7 @@ section.title {
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-
-section.title::before {
-  display: none;
+  background-image: none;
 }
 
 section.title h1 {
