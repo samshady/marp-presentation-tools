@@ -13,13 +13,14 @@ description: |
 
 ## Assets
 
-- `assets/cargobeamer.css` — The cargobeamer Marp theme (official brand colors)
-- `assets/unihalle.css` — The unihalle Marp theme (MLU brand colors)
+- `assets/cargobeamer.css` — The cargobeamer Marp theme (synced from repo)
+- `assets/unihalle.css` — The unihalle Marp theme (synced from repo)
 
 ## References
 
 - `references/cargobeamer-palette.md` — Official brand color palette and typography
 - `references/unihalle-palette.md` — MLU brand color palette
+- `references/slide-rules.md` — Slide structure constraints
 
 ## Workflow
 
@@ -27,14 +28,14 @@ When asked to create a Marp presentation:
 
 ### 1. Determine theme from context
 
-| If user mentions | Use theme |
-|---|---|
-| CargoBeamer, CB, claims, business, confidential | `cargobeamer` |
-| MLU, Uni Halle, university, seminar, Projektseminar | `unihalle` |
+| If user mentions | Use theme | Logo |
+|---|---|---|
+| CargoBeamer, CB, claims, business, confidential | `cargobeamer` | Auto via CSS background |
+| MLU, Uni Halle, university, seminar, Projektseminar | `unihalle` | Manual `![header-logo]` per slide |
 
-### 2. Create the markdown file with frontmatter
+### 2. Create the markdown file
 
-For **cargobeamer**:
+**cargobeamer** — logo auto-embedded:
 ```yaml
 ---
 marp: true
@@ -44,7 +45,7 @@ footer: "Confidential and Proprietary"
 ---
 ```
 
-For **unihalle**:
+**unihalle** — needs logo file + manual image tag:
 ```yaml
 ---
 marp: true
@@ -55,7 +56,9 @@ footer: "Seminar: [Title] | SS-26"
 ---
 ```
 
-### 3. Follow slide structure constraints
+> **unihalle logo**: Place `![header-logo](uni_halle_logo.jpg)` after your content on each content slide (not title slide). Copy the logo from `~/Development/marp-presentation-tools/tests/uni_halle_logo.jpg` if not present in your working directory.
+
+### 3. Slide structure constraints
 
 Refer to `references/slide-rules.md` for:
 - Max words per slide: 200-250
@@ -64,7 +67,7 @@ Refer to `references/slide-rules.md` for:
 - Bottom margin should be >10pt (use overflow: hidden on sections)
 - Use `<style scoped>` for per-slide layout overrides
 
-### 4. Use these scoped style templates for common layouts
+### 4. Scoped style templates for common layouts
 
 #### Title slide (any theme)
 ```html
@@ -76,7 +79,6 @@ section {
   align-items: center;
   text-align: center;
 }
-h1 { /* larger for title */ }
 </style>
 ```
 
@@ -90,25 +92,23 @@ For unihalle: table header `#295A97` bg, white text.
 #### Agenda slide
 Use scoped styles with `.focus-text` spans for descriptions under each agenda item.
 
-### 5. Logo handling
+### 5. Rendering
 
-- **cargobeamer**: Logo is built into the theme via background-image (no manual placement)
-- **unihalle**: Place `![header-logo](uni_halle_logo.jpg)` on each slide, theme positions it
+**VS Code** — themes are registered globally via VS Code settings (remote URLs), so any `.md` with `theme: cargobeamer` or `theme: unihalle` just works.
 
-### 6. Export commands
-
+**CLI** — use `--theme-set` pointing to the local CSS:
 ```bash
-# PDF
-npx @marp-team/marp-cli --pdf --allow-local-files presentation.md
+# PDF with cargobeamer (from anywhere)
+npx @marp-team/marp-cli --pdf --theme-set ~/Development/marp-presentation-tools/themes/cargobeamer.css presentation.md
 
-# PPTX (high quality for cargobeamer)
-npx @marp-team/marp-cli --pptx --image-scale 4 --allow-local-files presentation.md
+# PDF with unihalle
+npx @marp-team/marp-cli --pdf --theme-set ~/Development/marp-presentation-tools/themes/unihalle.css --allow-local-files presentation.md
 
-# PPTX compression (if too large)
-# Downscale PNGs in ppt/media/ to max 2560px width, then repack
+# PPTX
+npx @marp-team/marp-cli --pptx --image-scale 4 --theme-set ~/Development/marp-presentation-tools/themes/cargobeamer.css presentation.md
 ```
 
-### 7. Slide limits per section type
+### 6. Slide limits per section type
 
 | Type | Max bullets | Max words | Notes |
 |---|---|---|---|
