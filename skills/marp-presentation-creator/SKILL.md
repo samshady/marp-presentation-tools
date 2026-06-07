@@ -31,7 +31,7 @@ When asked to create a Marp presentation:
 | If user mentions | Use theme | Logo |
 |---|---|---|
 | CargoBeamer, CB, claims, business, confidential | `cargobeamer` | Auto via CSS background |
-| MLU, Uni Halle, university, seminar, Projektseminar | `unihalle` | Manual `![header-logo]` per slide |
+| MLU, Uni Halle, university, seminar, Projektseminar | `unihalle` | Auto via CSS `::before` pseudo-element |
 
 ### 2. Create the markdown file
 
@@ -45,7 +45,7 @@ footer: "Confidential and Proprietary"
 ---
 ```
 
-**unihalle** — needs logo file + manual image tag:
+**unihalle** — logo auto-embedded via CSS `::before`:
 ```yaml
 ---
 marp: true
@@ -56,7 +56,7 @@ footer: "Seminar: [Title] | SS-26"
 ---
 ```
 
-> **unihalle logo**: Place `![header-logo](uni_halle_logo.jpg)` after your content on each content slide (not title slide). Copy the logo from `~/Development/marp-presentation-tools/tests/uni_halle_logo.jpg` if not present in your working directory.
+Use `<!-- _class: title -->` on the first slide to hide the logo (it overlays content).
 
 ### 3. Slide structure constraints
 

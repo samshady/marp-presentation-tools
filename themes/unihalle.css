@@ -11,6 +11,19 @@ section {
   overflow: hidden;
 }
 
+section::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  right: 40px;
+  width: 100px;
+  height: 54px;
+  background-image: url("https://raw.githubusercontent.com/samshady/marp-presentation-tools/main/uni_halle_logo.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right top;
+}
+
 header,
 footer {
   color: #928781;
@@ -112,14 +125,6 @@ ol {
   margin-bottom: 20px;
 }
 
-img[alt="header-logo"] {
-  position: absolute;
-  top: 15px;
-  right: 40px;
-  width: 100px;
-  margin: 0;
-}
-
 img.artefact {
   display: block;
   margin: 0 auto;
@@ -145,6 +150,10 @@ section.title {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+section.title::before {
+  display: none;
 }
 
 section.title h1 {

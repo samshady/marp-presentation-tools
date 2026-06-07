@@ -12,8 +12,6 @@ footer: "Präsentationsthema | Semester"
 
 Testing the unihalle theme (MLU brand colors)
 
-![header-logo](uni_halle_logo.jpg)
-
 ---
 
 ## Features
@@ -21,9 +19,7 @@ Testing the unihalle theme (MLU brand colors)
 1. Green headings (`#9FBF47`)
 2. Blue sub-headings (`#295A97`)
 3. Grey footer text (`#928781`)
-4. Light background (`#F5F5F2`)
-
-![header-logo](uni_halle_logo.jpg)
+4. Logo auto-embedded via CSS (top-right)
 
 ---
 
@@ -32,8 +28,6 @@ Testing the unihalle theme (MLU brand colors)
 | Infomanagement | Prof. Dr. XYZ | WS 2025/26 |
 | E-Business | Prof. Dr. ABC | SS 2026 |
 | WWW-Technologien | Prof. Dr. DEF | WS 2025/26 |
-
-![header-logo](uni_halle_logo.jpg)
 
 ---
 
@@ -44,5 +38,3 @@ import pandas as pd
 data = pd.read_csv("survey_results.csv")
 print(data.describe())
 ```
-
-![header-logo](uni_halle_logo.jpg)
