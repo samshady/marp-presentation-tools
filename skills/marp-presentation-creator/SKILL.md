@@ -31,7 +31,7 @@ When asked to create a Marp presentation:
 | If user mentions | Use theme | Logo |
 |---|---|---|
 | CargoBeamer, CB, claims, business, confidential | `cargobeamer` | Auto via CSS background |
-| MLU, Uni Halle, university, seminar, Projektseminar | `unihalle` | Auto via CSS `::before` pseudo-element |
+| MLU, Uni Halle, university, seminar, Projektseminar | `unihalle` | Auto via CSS `background-image` on section |
 
 ### 2. Create the markdown file
 
