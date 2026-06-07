@@ -2,12 +2,12 @@
 marp: true
 theme: cargobeamer
 paginate: true
-footer: "CargoBeamer — Test Presentation"
+footer: "CargoBeamer — Präsentationsthema | Projekt"
 ---
 
 # CargoBeamer Theme Test
 
-Testing the cargobeamer theme via remote GitHub URL
+Testing the cargobeamer theme
 
 ---
 
@@ -19,7 +19,7 @@ Testing the cargobeamer theme via remote GitHub URL
 
 | Feature | Status |
 |---|---|
-| Logo (top-left) | Should be CargoBeamer logo |
+| Logo (top-left) | CargoBeamer logo |
 | Colors | Dark blue headings, light blue accents |
 | Font | Axiforma 20pt |
 
