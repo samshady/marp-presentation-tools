@@ -1,4 +1,4 @@
 themeSet:
-  - https://raw.githubusercontent.com/samshady/marp-vs-code-css-styles/refs/heads/master/cargobeamer.css
-  - https://raw.githubusercontent.com/samshady/marp-vs-code-css-styles/refs/heads/master/unihalle.css
+  - https://raw.githubusercontent.com/samshady/marp-presentation-tools/refs/heads/main/themes/cargobeamer.css
+  - https://raw.githubusercontent.com/samshady/marp-presentation-tools/refs/heads/main/themes/unihalle.css
 html: true
