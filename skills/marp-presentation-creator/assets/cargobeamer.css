@@ -1,0 +1,144 @@
+/* @theme cargobeamer */
+@import "default";
+
+section {
+	font-family: "Axiforma", "Segoe UI", Arial, sans-serif;
+	color: #000000;
+	font-size: 20pt;
+	line-height: 1.5;
+	background-color: white;
+	padding: 50px;
+	overflow: hidden;
+
+	background-image: url("https://raw.githubusercontent.com/samshady/marp-vs-code-css-styles/master/Cargobeamer_Logo.png");
+	background-repeat: no-repeat;
+	background-position: 30px 30px;
+	background-size: 150px auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #00132B;
+	margin-top: 0;
+	margin-bottom: 10px;
+	font-family: "Axiforma", "Segoe UI", Arial, sans-serif;
+	font-weight: 600;
+}
+
+h1 {
+	font-size: 40pt;
+	border-bottom: 2px solid #6EC8FF;
+	padding-bottom: 10px;
+	color: #6EC8FF;
+}
+
+h2 {
+	font-size: 28pt;
+	color: #00132B;
+}
+
+h3 {
+	font-size: 22pt;
+	color: #00132B;
+}
+
+p {
+	margin-bottom: 16px;
+}
+
+a {
+	color: #6EC8FF;
+	text-decoration: underline;
+}
+
+strong {
+	font-family: "Axiforma", "Segoe UI", Arial, sans-serif;
+	font-weight: 700;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+	font-size: 16pt;
+}
+
+th {
+	background-color: #B6E3FF;
+	color: #000000;
+	padding: 10px 14px;
+	text-align: left;
+	font-weight: 600;
+	border: 0.5px solid #B6E3FF;
+}
+
+td {
+	padding: 8px 14px;
+	text-align: left;
+	background-color: white;
+	border: 0.5px solid #d0d0d0;
+}
+
+tr:nth-child(even) td {
+	background-color: #FAFAFB;
+}
+
+ul {
+	list-style: none;
+	padding-left: 20px;
+}
+
+ul li::before {
+	content: "–";
+	color: #6EC8FF;
+	font-weight: bold;
+	display: inline-block;
+	width: 14px;
+	margin-left: -14px;
+}
+
+ol {
+	padding-left: 24px;
+}
+
+li {
+	margin-bottom: 8px;
+}
+
+pre,
+code {
+	font-family: "JetBrains Mono", Courier, monospace;
+	background-color: #FAFAFB;
+	border: 0.75px solid #6EC8FF;
+	border-radius: 6px;
+}
+
+code {
+	padding: 2px 6px;
+	font-size: 90%;
+}
+
+pre {
+	padding: 16px;
+	overflow-x: auto;
+	font-size: 16pt;
+}
+
+blockquote {
+	font-size: 0.85em;
+	padding: 14px 18px;
+	background-color: #FAFAFB;
+	border-left: 4px solid #6EC8FF;
+	border-radius: 6px;
+	color: #000000;
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+
+blockquote p {
+	margin-bottom: 8px;
+}

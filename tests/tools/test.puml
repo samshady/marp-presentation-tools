@@ -1,0 +1,9 @@
+@startuml
+actor Executive
+participant "Langdock Agent" as Agent
+participant "Email Draft" as Draft
+
+Executive -> Agent: Send rough notes
+Agent -> Draft: Translate and format
+Draft --> Executive: Return German text
+@enduml
