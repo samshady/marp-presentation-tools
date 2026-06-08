@@ -7,15 +7,6 @@ footer: "CargoBeamer — KI & Automatisierung | 2026"
 
 <!-- _class: title -->
 
-<style scoped>
-section {
-  background-image: url("icons/carbon_ai.svg"), url("icons/tabler_robot.svg");
-  background-repeat: no-repeat;
-  background-position: right 60px top 50%, left 60px bottom 80px;
-  background-size: 90px, 80px;
-}
-</style>
-
 # KI & Robotik
 
 ## Automatisierung der Zukunft
