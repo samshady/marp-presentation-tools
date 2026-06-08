@@ -108,7 +108,29 @@ npx @marp-team/marp-cli --pdf --theme-set ~/Development/marp-presentation-tools/
 npx @marp-team/marp-cli --pptx --image-scale 4 --theme-set ~/Development/marp-presentation-tools/themes/cargobeamer.css presentation.md
 ```
 
-### 6. Slide limits per section type
+### 6. Icons and visual assets
+
+Use the `/find-icon` command to search and download icons:
+
+```
+/find-icon search chart --limit 5          # search both Iconify + Noun Project
+/find-icon search "user profile" --source noun  # Noun Project only
+/find-icon fetch mdi:chart-bar --source iconify  # download SVG
+/find-icon fetch 12345 --source noun --color #295A97  # Noun icon in MLU blue
+```
+
+**Iconify** (default): 275k+ free icons, 200+ sets (Material, Tabler, etc.), no attribution.
+**Noun Project**: requires attribution, use `--color #HEX` for brand colors.
+
+After downloading, add icons to slides with standard Markdown:
+
+```markdown
+![](assets/icon.svg)
+```
+
+Or embed inline in scoped `<style>` as pseudo-element content or background-image.
+
+### 7. Slide limits per section type
 
 | Type | Max bullets | Max words | Notes |
 |---|---|---|---|
