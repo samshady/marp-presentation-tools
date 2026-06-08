@@ -5,26 +5,19 @@ paginate: true
 footer: "CargoBeamer — KI & Automatisierung | 2026"
 ---
 
-<style>
-/* Color icons with cargobeamer primary blue */
-.icon-blue {
-  text-align: center;
-  margin-bottom: 10px;
+<!-- _class: title -->
+
+<style scoped>
+.deco-icon {
+  position: absolute;
+  opacity: 0.3;
 }
-.icon-blue svg,
-.icon-blue img {
-  width: 64px;
-  height: 64px;
-  fill: none;
-  stroke: #6EC8FF;
-  stroke-width: 2;
-}
-.icon-blue svg *[fill] {
-  fill: #6EC8FF;
-}
+.deco-tl { top: 30px; right: 30px; }
+.deco-br { bottom: 30px; left: 30px; }
 </style>
 
-<!-- _class: title -->
+<img src="icons/carbon_ai.svg" class="deco-icon deco-tl" width="80">
+<img src="icons/tabler_robot.svg" class="deco-icon deco-br" width="60">
 
 # KI & Robotik
 
@@ -32,13 +25,19 @@ footer: "CargoBeamer — KI & Automatisierung | 2026"
 
 ---
 
+<style scoped>
+.deco-icon {
+  position: absolute;
+  opacity: 0.15;
+}
+.deco-tr { top: 20px; right: 20px; width: 70px; }
+.deco-bl { bottom: 20px; left: 20px; width: 50px; }
+</style>
+
+<img src="icons/carbon_ai.svg" class="deco-icon deco-tr">
+<img src="icons/mdi_computer.svg" class="deco-icon deco-bl">
+
 ## KI in der Industrie
-
-<div class="icon-blue">
-
-![](icons/carbon_ai.svg)
-
-</div>
 
 - **Machine Learning** — Mustererkennung in Produktionsdaten
 - **Computer Vision** — Qualitätskontrolle via Bildverarbeitung
@@ -46,13 +45,19 @@ footer: "CargoBeamer — KI & Automatisierung | 2026"
 
 ---
 
+<style scoped>
+.deco-icon {
+  position: absolute;
+  opacity: 0.15;
+}
+.deco-tr { top: 20px; right: 20px; width: 60px; }
+.deco-bl { bottom: 20px; left: 20px; width: 80px; }
+</style>
+
+<img src="icons/tabler_robot.svg" class="deco-icon deco-tr">
+<img src="icons/carbon_ai.svg" class="deco-icon deco-bl">
+
 ## Robotik
-
-<div class="icon-blue">
-
-![](icons/tabler_robot.svg)
-
-</div>
 
 | Typ | Einsatzbereich | Vorteil |
 |---|---|---|
@@ -62,13 +67,19 @@ footer: "CargoBeamer — KI & Automatisierung | 2026"
 
 ---
 
+<style scoped>
+.deco-icon {
+  position: absolute;
+  opacity: 0.15;
+}
+.deco-tr { top: 20px; right: 20px; width: 70px; }
+.deco-bl { bottom: 20px; left: 20px; width: 50px; }
+</style>
+
+<img src="icons/mdi_computer.svg" class="deco-icon deco-tr">
+<img src="icons/tabler_robot.svg" class="deco-icon deco-bl">
+
 ## Moderne Computerarchitektur
-
-<div class="icon-blue">
-
-![](icons/mdi_computer.svg)
-
-</div>
 
 - **Edge Computing** — Verarbeitung direkt am Sensor
 - **Cloud-Plattformen** — Skalierbare KI-Infrastruktur
