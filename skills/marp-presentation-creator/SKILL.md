@@ -110,48 +110,50 @@ npx @marp-team/marp-cli --pptx --image-scale 4 --theme-set ~/Development/marp-pr
 
 ### 6. Icons and visual assets
 
-Use the `/find-icon` command to search and download icons:
+When asked to add icons to an existing presentation, **detect the theme from the file's frontmatter** and use the correct primary color automatically:
+
+| Theme | Frontmatter `theme:` | Primary accent color |
+|---|---|---|
+| `cargobeamer` | `theme: cargobeamer` | `#6EC8FF` (Light Blue) |
+| `unihalle` | `theme: unihalle` | `#9FBF47` (MLU Green) |
+| `default` | `theme: default` | Ask or use `#295A97` |
+
+Use the `/find-icon` command to search and download icons, then hardcode the primary color into the SVG file:
 
 ```
-/find-icon search chart --limit 5          # search both Iconify + Noun Project
-/find-icon search "user profile" --source noun  # Noun Project only
-/find-icon fetch mdi:chart-bar --source iconify  # download SVG
-/find-icon fetch 12345 --source noun --color #295A97  # Noun icon in MLU blue
+/find-icon search robot --limit 5          # search both Iconify + Noun Project
+/find-icon fetch tabler:robot --source iconify  # download SVG
 ```
 
-**Iconify** (default): 275k+ free icons, 200+ sets (Material, Tabler, etc.), no attribution.
-**Noun Project**: requires attribution, use `--color #HEX` for brand colors.
+**Coloring icons**: Edit the downloaded SVG — replace `currentColor` with the theme's primary hex:
+- `fill="currentColor"` → `fill="#6EC8FF"` (cargobeamer) or `fill="#9FBF47"` (unihalle)
+- `stroke="currentColor"` → `stroke="#6EC8FF"` (cargobeamer) or `stroke="#9FBF47"` (unihalle)
 
-After downloading, add icons as decorative background-images via scoped `<style>` to avoid clashing with headers, footers, and pagination:
+Then place them as decorative background-images via scoped `<style>` — one per slide, never on title slides:
 
 ```markdown
----
-marp: true
-theme: cargobeamer
-paginate: true
-footer: "Project | 2026"
----
-
 <style scoped>
 section {
-  background-image: url("icons/mdi_chart-bar.svg");
+  background-image: url("icons/tabler_robot.svg");
   background-repeat: no-repeat;
   background-position: calc(100% - 60px) 50%;
   background-size: 80px;
 }
 </style>
 
-## Heading
+## Slide Heading
 
 - Content here...
 ```
 
 **Icon placement rules**:
+- Read the `theme:` from frontmatter to pick the primary color automatically
+- Hardcode the brand color into the SVG (`fill`/`stroke` — not `currentColor`)
 - Use `background-image` on `section` via scoped `<style>` — not `<img>` tags
 - Position with `calc(100% - 60px) 50%` (right side, vertically centered) or `60px 60%` (left side)
-- Size: 70-80px for content slides (never on title slides)
-- Only use `background-image` approach — `position: absolute` `<img>` tags overlap headers/footers
-- The SVG should have hardcoded `stroke` or `fill` in the brand color if you want a custom color
+- Size: 70-80px for content slides
+- Never add decorative icons to title slides (check for `<!-- _class: title -->` or skip the first slide)
+- Never use `position: absolute` — it clashes with headers/footers/pagination
 
 ### 7. Slide limits per section type
 
