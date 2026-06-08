@@ -45,7 +45,7 @@ footer: "Confidential and Proprietary"
 ---
 ```
 
-**unihalle** — logo auto-embedded via CSS `::before`:
+**unihalle** — logo auto-embedded via CSS `background-image` on section (hidden on title slides):
 ```yaml
 ---
 marp: true
@@ -56,7 +56,7 @@ footer: "Seminar: [Title] | SS-26"
 ---
 ```
 
-Use `<!-- _class: title -->` on the first slide to hide the logo (it overlays content).
+Use `<!-- _class: title -->` on the first slide to hide the logo.
 
 ### 3. Slide structure constraints
 
@@ -122,13 +122,36 @@ Use the `/find-icon` command to search and download icons:
 **Iconify** (default): 275k+ free icons, 200+ sets (Material, Tabler, etc.), no attribution.
 **Noun Project**: requires attribution, use `--color #HEX` for brand colors.
 
-After downloading, add icons to slides with standard Markdown:
+After downloading, add icons as decorative background-images via scoped `<style>` to avoid clashing with headers, footers, and pagination:
 
 ```markdown
-![](assets/icon.svg)
+---
+marp: true
+theme: cargobeamer
+paginate: true
+footer: "Project | 2026"
+---
+
+<style scoped>
+section {
+  background-image: url("icons/mdi_chart-bar.svg");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 60px) 50%;
+  background-size: 80px;
+}
+</style>
+
+## Heading
+
+- Content here...
 ```
 
-Or embed inline in scoped `<style>` as pseudo-element content or background-image.
+**Icon placement rules**:
+- Use `background-image` on `section` via scoped `<style>` — not `<img>` tags
+- Position with `calc(100% - 60px) 50%` (right side, vertically centered) or `60px 60%` (left side)
+- Size: 70-80px for content slides (never on title slides)
+- Only use `background-image` approach — `position: absolute` `<img>` tags overlap headers/footers
+- The SVG should have hardcoded `stroke` or `fill` in the brand color if you want a custom color
 
 ### 7. Slide limits per section type
 

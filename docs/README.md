@@ -66,10 +66,33 @@ Four markdown snippets in `~/.config/Code/User/snippets/markdown.json`:
 
 Two skills for AI-assisted presentation creation:
 
-- **marp-presentation-creator**: Generates new presentations with correct frontmatter, layout, and theme
-- **marp-presentation-quality**: Analyzes slides for overflow, underuse, and styling issues
+- **marp-presentation-creator**: Generates new presentations with correct frontmatter, layout, theme, and decorative icons
+- **marp-presentation-quality**: Analyzes slides for overflow, underuse, styling issues, and icon placement
 
 Both are at `skills/` in this repo and synced to `~/.kilo/skills/`.
+
+## Icons
+
+### /find-icon command
+
+Search and download icons from two sources. See `.kilo/command/find-icon.md`.
+
+### Decorative icon placement
+
+Use `background-image` via scoped `<style>` on content slides (never title slides):
+
+```css
+<style scoped>
+section {
+  background-image: url("icons/mdi_chart-bar.svg");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 60px) 50%;
+  background-size: 80px;
+}
+</style>
+```
+
+SVG files should have hardcoded `fill`/`stroke` in the brand color, or use `currentColor`.
 
 ## Known issues & history
 

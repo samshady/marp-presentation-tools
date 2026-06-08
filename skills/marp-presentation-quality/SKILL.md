@@ -59,7 +59,18 @@ python3 Tools/slide-fixes/fix_slides.py
 python3 Tools/slide-fixes/fix_slides2.py
 ```
 
-### 4. Generate quality report
+### 4. Check icon placement
+
+If the presentation uses decorative icons, verify:
+
+| Check | Rule |
+|---|---|
+| Icons not on title slides | No `background-image` with icons on `section.title` |
+| Icon positioning | Use `calc(100% - Npx)` from right, never `position: absolute` |
+| No footer clash | Icons positioned at `50%` vertical, not bottom |
+| Color matches theme | SVG hardcodes brand color or uses `currentColor` with parent `color` |
+
+### 5. Generate quality report
 
 After analysis, provide:
 - Per-slide overflow warnings (❌)
