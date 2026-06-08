@@ -11,13 +11,14 @@ footer: "CargoBeamer — KI & Automatisierung | 2026"
 .deco-icon {
   position: absolute;
   opacity: 0.3;
+  pointer-events: none;
 }
-.deco-tl { top: 30px; right: 30px; }
-.deco-br { bottom: 30px; left: 30px; }
+.deco-tr { top: 30px; right: 40px; width: 80px; }
+.deco-bl { bottom: 80px; left: 40px; width: 60px; }
 </style>
 
-<img src="icons/carbon_ai.svg" class="deco-icon deco-tl" width="80">
-<img src="icons/tabler_robot.svg" class="deco-icon deco-br" width="60">
+<img src="icons/carbon_ai.svg" class="deco-icon deco-tr">
+<img src="icons/tabler_robot.svg" class="deco-icon deco-bl">
 
 # KI & Robotik
 
@@ -28,14 +29,16 @@ footer: "CargoBeamer — KI & Automatisierung | 2026"
 <style scoped>
 .deco-icon {
   position: absolute;
-  opacity: 0.15;
+  opacity: 0.12;
+  pointer-events: none;
 }
-.deco-tr { top: 20px; right: 20px; width: 70px; }
-.deco-bl { bottom: 20px; left: 20px; width: 50px; }
+.deco-tr { top: 20px; right: 20px; width: 60px; }
+.deco-tl { top: 30px; left: 30px; width: 50px; }
+.deco-mr { top: 50%; right: 30px; width: 40px; transform: translateY(-50%); }
 </style>
 
-<img src="icons/carbon_ai.svg" class="deco-icon deco-tr">
-<img src="icons/mdi_computer.svg" class="deco-icon deco-bl">
+<img src="icons/carbon_ai.svg" class="deco-icon deco-tl">
+<img src="icons/mdi_computer.svg" class="deco-icon deco-mr">
 
 ## KI in der Industrie
 
@@ -48,14 +51,16 @@ footer: "CargoBeamer — KI & Automatisierung | 2026"
 <style scoped>
 .deco-icon {
   position: absolute;
-  opacity: 0.15;
+  opacity: 0.12;
+  pointer-events: none;
 }
-.deco-tr { top: 20px; right: 20px; width: 60px; }
-.deco-bl { bottom: 20px; left: 20px; width: 80px; }
+.deco-tr { top: 20px; right: 20px; width: 50px; }
+.deco-tl { top: 30px; left: 30px; width: 60px; }
+.deco-ml { top: 40%; left: 20px; width: 45px; }
 </style>
 
-<img src="icons/tabler_robot.svg" class="deco-icon deco-tr">
-<img src="icons/carbon_ai.svg" class="deco-icon deco-bl">
+<img src="icons/tabler_robot.svg" class="deco-icon deco-tl">
+<img src="icons/carbon_ai.svg" class="deco-icon deco-ml">
 
 ## Robotik
 
@@ -70,14 +75,16 @@ footer: "CargoBeamer — KI & Automatisierung | 2026"
 <style scoped>
 .deco-icon {
   position: absolute;
-  opacity: 0.15;
+  opacity: 0.12;
+  pointer-events: none;
 }
-.deco-tr { top: 20px; right: 20px; width: 70px; }
-.deco-bl { bottom: 20px; left: 20px; width: 50px; }
+.deco-tr { top: 20px; right: 20px; width: 60px; }
+.deco-tl { top: 30px; left: 30px; width: 50px; }
+.deco-mr { top: 45%; right: 25px; width: 40px; }
 </style>
 
-<img src="icons/mdi_computer.svg" class="deco-icon deco-tr">
-<img src="icons/tabler_robot.svg" class="deco-icon deco-bl">
+<img src="icons/mdi_computer.svg" class="deco-icon deco-tl">
+<img src="icons/tabler_robot.svg" class="deco-icon deco-mr">
 
 ## Moderne Computerarchitektur
 
