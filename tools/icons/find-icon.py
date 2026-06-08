@@ -93,7 +93,8 @@ def search_iconify(query, limit=10):
     return results, data.get("collections", {})
 
 def fetch_iconify(icon_id):
-    with urllib.request.urlopen(f"{ICONIFY_API}/{icon_id}.svg") as r:
+    req = urllib.request.Request(f"{ICONIFY_API}/{icon_id}.svg", headers={"User-Agent": "Marp-Icon-Tool/1.0"})
+    with urllib.request.urlopen(req) as r:
         svg_data = r.read()
     return {"svg_data": svg_data, "id": icon_id}
 
