@@ -12,8 +12,7 @@ section {
   background-image: url("icons/carbon_ai.svg"), url("icons/tabler_robot.svg");
   background-repeat: no-repeat;
   background-position: right 60px top 50%, left 60px bottom 80px;
-  background-size: 60px, 50px;
-  background-blend-mode: overlay;
+  background-size: 90px, 80px;
 }
 </style>
 
@@ -28,7 +27,7 @@ section {
   background-image: url("icons/carbon_ai.svg");
   background-repeat: no-repeat;
   background-position: calc(100% - 60px) 50%;
-  background-size: 45px;
+  background-size: 80px;
 }
 </style>
 
@@ -45,7 +44,7 @@ section {
   background-image: url("icons/tabler_robot.svg"), url("icons/carbon_ai.svg");
   background-repeat: no-repeat;
   background-position: calc(100% - 60px) 30%, 60px 60%;
-  background-size: 50px, 40px;
+  background-size: 80px, 70px;
 }
 </style>
 
@@ -64,7 +63,7 @@ section {
   background-image: url("icons/mdi_computer.svg");
   background-repeat: no-repeat;
   background-position: calc(100% - 60px) 50%;
-  background-size: 45px;
+  background-size: 80px;
 }
 </style>
 
