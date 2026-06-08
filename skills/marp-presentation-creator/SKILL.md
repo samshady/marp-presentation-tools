@@ -120,11 +120,24 @@ When asked to add icons to an existing presentation, **detect the theme from the
 | `unihalle` | `theme: unihalle` | `#9FBF47` (MLU Green) |
 | `default` | `theme: default` | Ask or use `#295A97` |
 
-Use the `/find-icon` command to search and download icons, then hardcode the primary color into the SVG file:
+Use the icon tool to search and download icons. The tool supports two sources:
 
+**Iconify** (free, 275k+ icons, 200+ sets, no attribution needed):
+```bash
+# Search
+python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py search robot --limit 5
+
+# Fetch SVG
+python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py fetch tabler:robot --source iconify
+
+# Fetch and save to a specific dir
+python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py fetch mdi:computer --source iconify -o ./icons
 ```
-/find-icon search robot --limit 5          # search both Iconify + Noun Project
-/find-icon fetch tabler:robot --source iconify  # download SVG
+
+**Noun Project** (requires attribution, supports custom colors):
+```bash
+python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py search train --source noun
+python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py fetch 12345 --source noun --color #295A97
 ```
 
 **Coloring icons**: Edit the downloaded SVG — replace `currentColor` with the theme's primary hex:
