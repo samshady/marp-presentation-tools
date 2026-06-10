@@ -50,6 +50,11 @@ This will:
 
 Use `references/slide-rules.md` to verify these hard rules. Check each by inspecting the rendered HTML output (`npx @marp-team/marp-cli --html presentation.md -o presentation.html` then inspect with Puppeteer/jsdom or manually via browser DevTools):
 
+#### Content Formatting (RULE-CF-01)
+| Rule | Check | Target | Fix |
+|------|-------|--------|-----|
+| CF-01 | Em dash usage | Zero em dashes (---) or en dashes (--) in slide content | Replace with hyphen (-) or colon (:) |
+
 #### Typography (RULE-TY-01 through RULE-TY-07)
 | Rule | Check | Target | Fix |
 |------|-------|--------|-----|
@@ -108,11 +113,22 @@ Cross-reference detected issues against the failure mode catalog:
 | Cards misaligned in grid | F7 Card misalignment | Fix grid-template/place-items |
 | Disjointed story across slides | F8 Narrative disconnect | Restructure with SCQA/arc |
 
-### 5. Run structured VLM quality audit
+### 5. Check visual variety
+
+After running all quantitative checks, verify the deck has adequate visual variety:
+
+| Check | Target | Fix |
+|-------|--------|-----|
+| At least 50% of content slides have decorative icons | Yes | Add background-image icons on alternating slides |
+| More than 1 color used across slides | Yes | Use brand color variants (h1=#6EC8FF, h2=#00132B, cards=#FAFAFB, borders=#6EC8FF, accent borders=#00132B) |
+| No boxes/borders on all slides | Not every slide should have card borders | Mix flat bullet list slides with card grid slides |
+| Slide layouts vary (not all same format) | At least 3 different layout types | Alternate: flat list, table, flex cards, icon + list |
+
+### 6. Run structured VLM quality audit
 
 For semantic checks that pixel/rule analysis can't catch, use a vision-capable model on rendered slide screenshots.
 
-**Stage A — Per-Slide Visual Audit** (after rendering each slide):
+**Stage A - Per-Slide Visual Audit** (after rendering each slide):
 
 ```
 Evaluate this presentation slide screenshot. Respond ONLY with JSON:
@@ -151,21 +167,22 @@ Respond ONLY with JSON:
 
 **VLM QA integration**: Save the VLM output as `qa-report.json`. Feed failures back into the agent context for targeted slide regeneration. Use VLM for **semantic** checks only (balance, harmony, narrative) — never for quantitative measurements (that's what CSS inspection is for).
 
-### 6. Generate quality report
+### 7. Generate quality report
 
 After analysis, provide:
 - Per-slide overflow warnings (❌)
 - Per-slide underuse warnings (⚠)
+- Content formatting violations (RULE-CF-01: em dash check)
 - Typography rule violations (RULE-TY-*)
 - Layout rule violations (RULE-LY-*)  
 - Color/contrast violations (RULE-CO-*)
 - Density violations (RULE-DE-*)
 - Failure mode matches (F1-F8)
+- Visual variety check (icons on 50%+ slides, layout diversity)
 - VLM semantic audit results
-- Font/color inconsistencies
-- Content density flags (too many bullets/words)
+- Content density flags (too many bullets/words/long sentences)
 
-### 7. Overflow detection explained
+### 8. Overflow detection explained
 
 The `analyze_slides.py` script uses these thresholds:
 - **Slide dimensions**: 960x540pt (Marp default 16:9)

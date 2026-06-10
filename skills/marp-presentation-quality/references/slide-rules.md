@@ -19,6 +19,10 @@ With default padding of 50px on each side:
 - ~70px for header (when enabled)
 - ~40px for footer/pagination (when enabled)
 
+## Content Formatting Rules
+
+- **RULE-CF-01:** Never use em dashes (---) or en dashes (--) in slide content. Use a regular hyphen (-) or colon (:) instead.
+
 ## Typography Rules
 
 ### Font size guidelines (content slides)
@@ -59,9 +63,9 @@ With default padding of 50px on each side:
 
 | Scenario | Recommended max | Overflow risk |
 |---|---|---|
-| Body text only | 200-250 words | >300 words |
-| Bullet list (no sub-items) | 7-9 items | >12 items |
-| Nested lists | 5-7 top-level items | >10 top-level items |
+| Body text only (scannable) | 40-60 words | >80 words |
+| Bullet list (no sub-items) | 5-6 items | >8 items |
+| Nested lists | 3-4 top-level items | >6 top-level items |
 | Text + table | 100 words + 5 rows | — |
 | Code block | 15-20 lines (80 char width) | >25 lines |
 | Image full-width | 1 image | >1 image + text |
@@ -94,7 +98,7 @@ With default padding of 50px on each side:
 - **RULE-LY-04:** Card/container border-radius must be consistent (±2px within deck)
 - **RULE-LY-05:** No elements overflowing slide bounds (FAIL)
 - **RULE-LY-06:** Whitespace must occupy ≥10% of slide area
-- **RULE-LY-07:** Max 5±2 content items per slide (FAIL if >9)
+- **RULE-LY-07:** Max 5+/-2 content items per slide (FAIL if >8)
 
 ### First line proximity to top
 - First content after header should start **120-160px** from slide top edge
@@ -122,7 +126,7 @@ With default padding of 50px on each side:
 
 ## Density Rules
 
-- **RULE-DE-01:** Per-page card budget: max 5 cards on content, max 6 on bento
+- **RULE-DE-01:** Per-page card budget: max 4 cards, max 4 items per card
 - **RULE-DE-02:** Per-page chart budget: max 1-2 complex charts per slide
 - **RULE-DE-03:** Decoration elements ≤ 20% of total DOM nodes on the page
 

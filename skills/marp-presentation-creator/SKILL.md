@@ -28,7 +28,15 @@ description: |
 
 When asked to create a Marp presentation:
 
-### 0. Determine narrative structure and slide count
+### 0. Content formatting rules (MANDATORY)
+
+These rules apply to every piece of text in every slide:
+
+- **Never use em dashes (---) or en dashes (--) in content text.** Use a regular hyphen (-) or a colon (:) instead. Example: write "Cognitive Load Theory - Mayer's 12 principles" not "Cognitive Load Theory --- Mayer's 12 principles".
+- **Use concise bullet points** - one line each, under 10 words per bullet where possible
+- **Vary content density across slides** - mix dense content slides with lighter slides containing icons or whitespace
+
+### 1. Determine narrative structure and slide count
 
 Before generating slides, plan the deck structure. Use the SCQA framework for executive/strategy decks, or a storytelling arc for narrative-heavy presentations.
 
@@ -87,52 +95,78 @@ Use `<!-- _class: title -->` on the first slide to hide the logo.
 ### 3. Slide structure constraints
 
 Refer to `references/slide-rules.md` for:
-- Max words per slide: 200-250
-- Max bullet items: 8-9 (cargobeamer), 10-12 (unihalle)
+- Max words per slide: 40-60 for content slides (short, scannable bullets), up to 100 for data slides
+- Max bullet items: 5-6 per slide, never more than 7
 - Font sizes: h1=40pt/1.4em, h2=28pt/1.1em, body=20pt/0.9em
 - Bottom margin should be >10pt (use overflow: hidden on sections)
 - 7 bento grid layout templates available
 - Failure mode catalog (F1-F8) for anti-pattern avoidance
 - Typography hard rules (RULE-TY-01 through RULE-TY-07)
 - Use `<style scoped>` for per-slide layout overrides
+- **Use short scannable bullets** - prefer pipe-separated inline text in cards over stacked bullet lists
 
-### 4. Bento grid layout templates
+### 4. Multi-column card layouts (CRITICAL)
 
-Choose the layout template that matches the slide's content type:
+For any slide with cards or multiple columns, you MUST follow this exact pattern. Marp's internal `<section>` rendering breaks nested flexbox/grid layouts unless you reset `section { display: block; }` first.
 
-| # | Template | CSS Grid | Best For |
-|---|----------|----------|----------|
-| 1 | Full-bleed (no grid) | — | Title, section dividers |
-| 2 | 2-col symmetric | `grid-template-columns: 1fr 1fr` | Compare-contrast |
-| 3 | 2-col asymmetric 60:40 | `grid-template-columns: 3fr 2fr` | Content + supporting visual |
-| 4 | 3-column | `grid-template-columns: 1fr 1fr 1fr` | Feature lists, dashboards |
-| 5 | 4-card bento 2×2 | `grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr` | Dense info quadrants |
-| 6 | 6-card bento 3×2 | `grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr` | Gallery, team, use cases |
-| 7 | Center single column | `place-items: center; text-align: center` | Quotes, key numbers, CTAs |
+**CRITICAL RULES for card layouts:**
+1. Always set `section { display: block; }` in the scoped style when using card rows
+2. Wrap cards in a `<div class="card-row">` container, NOT a `<section>`
+3. Use `display: flex` with `flex: 1` and `min-width: 0` on cards
+4. Set `width: 100%` on the row container
+5. Never override `section` display to `flex` or `grid` for multi-card layouts - Marp's h1 header and logo clash with it
 
+**Card row pattern (2-4 cards, equal width):**
 ```html
+<div class="card-row">
+
+<div class="card">
+<h3>Title</h3>
+Compact content here | Use pipes | For short items
+</div>
+
+<div class="card">
+<h3>Title</h3>
+More compact | Content | Here
+</div>
+
+</div>
+
 <style scoped>
-/* 2-col symmetric example */
-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+section { display: block; }
+.card-row {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  margin-top: 20px;
 }
-/* 4-card bento example */
-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 16px;
-}
-section > * {
-  background: var(--surface, #FAFAFB);
-  border: 0.75px solid var(--primary, #6EC8FF);
+.card {
+  flex: 1;
+  min-width: 0;
+  background: #FAFAFB;
+  border: 0.75px solid #6EC8FF;
   border-radius: 8px;
-  padding: 16px;
+  padding: 14px;
+  font-size: 15pt;
+  line-height: 1.5;
+}
+.card h3 {
+  font-size: 20pt;
+  font-weight: 600;
+  color: #6EC8FF;
+  margin: 0 0 8px 0;
 }
 </style>
 ```
+
+**Content limits per card layout:**
+
+| Number of cards | Max items per card | Best for |
+|----------------|-------------------|----------|
+| 2 cards | 5 items each | Compare and contrast |
+| 3 cards | 4 items each | Pipeline stages, feature sets |
+| 4 cards | 3 items each | Roadmap phases, quadrants |
+| Grid 2x2 (4 cards) | 3 items each | Dense information |
 
 ### 5. Typography system
 
@@ -216,7 +250,9 @@ npx @marp-team/marp-cli --pptx --image-scale 4 --theme-set ~/Development/marp-pr
 
 ### 8. Icons and visual assets
 
-When asked to add icons to an existing presentation, **detect the theme from the file's frontmatter** and use the correct primary color automatically:
+Icons are REQUIRED for visual variety. Every deck with 6+ slides should have decorative icons on at least 50% of content slides (not title slides). Use the icon search tool to find relevant icons for each slide's topic.
+
+When asked to add icons to an existing presentation or create a new one, **detect the theme from the file's frontmatter** and use the correct primary color automatically:
 
 | Theme | Frontmatter `theme:` | Primary accent color |
 |---|---|---|
@@ -231,8 +267,9 @@ Use the icon tool to search and download icons. Requires `requests_oauthlib` for
 # Search
 python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py search robot --limit 5
 
-# Fetch SVG
-python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py fetch tabler:robot --source iconify
+# Fetch SVG (save to ./icons directory)
+mkdir -p icons
+python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py fetch tabler:robot --source iconify -o ./icons
 
 # Fetch and save to a specific dir
 python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py fetch mdi:computer --source iconify -o ./icons
@@ -244,12 +281,15 @@ python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py search tr
 python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py fetch 12345 --source noun --color #295A97
 ```
 
-**Coloring icons**: Edit the downloaded SVG — replace `currentColor` with the theme's primary hex:
-- `fill="currentColor"` → `fill="#6EC8FF"` (cargobeamer) or `fill="#9FBF47"` (unihalle)
-- `stroke="currentColor"` → `stroke="#6EC8FF"` (cargobeamer) or `stroke="#9FBF47"` (unihalle)
+**Coloring icons**: Edit the downloaded SVG using sed. Use `#6EC8FF` (primary light blue) for cargobeamer icons so they pop on the white background - NOT `#00132B` which looks nearly black. For unihalle use `#9FBF47`:
+```bash
+# After fetching, hardcode the brand color (use the light/accent color, not dark)
+sed -i 's/currentColor/#6EC8FF/g' icons/*.svg
+# Verify: check the fill attribute changed
+head -1 icons/*.svg | grep -o 'fill="[^"]*"'
+```
 
-Then place them as decorative background-images via scoped `<style>` — one per slide, never on title slides:
-
+Then place them as decorative background-images via scoped `<style>` on alternating content slides:
 ```markdown
 <style scoped>
 section {
@@ -267,21 +307,21 @@ section {
 
 **Icon placement rules**:
 - Read the `theme:` from frontmatter to pick the primary color automatically
-- Hardcode the brand color into the SVG (`fill`/`stroke` — not `currentColor`)
-- Use `background-image` on `section` via scoped `<style>` — not `<img>` tags
+- Hardcode the brand color into the SVG using sed. Use the **primary/accent brand color** (e.g. `#6EC8FF` for cargobeamer, `#9FBF47` for unihalle) not the dark text color - icons need to visually pop on white backgrounds
+- Use `background-image` on `section` via scoped `<style>` - not `<img>` tags
 - Position with `calc(100% - 60px) 50%` (right side, vertically centered) or `60px 60%` (left side)
-- Size: 70-80px for content slides
+- Size: 70-100px for content slides, 100px for title slides
+- **Place icons on alternating slides** so the deck is visually varied - not every slide needs one
 - Never add decorative icons to title slides (check for `<!-- _class: title -->` or skip the first slide)
-- Never use `position: absolute` — it clashes with headers/footers/pagination
 
 ### 9. Slide limits per section type
 
 | Type | Max bullets | Max words | Notes |
 |---|---|---|---|
 | Title | 0 | 15 | Just title + subtitle + author |
-| Agenda | 5-7 | 80 | Use .focus-text for descriptions |
-| Content | 8-9 | 250 | Split if more content needed |
-| Table | 6 rows | 100 | Keep columns to 4 max |
-| Cards | 5 cards | 200 | 3-5 points per card |
+| Agenda | 5-6 | 60 | One line per item |
+| Content | 5-6 | 60 | Short scannable bullets |
+| Table | 6 rows | 80 | Keep columns to 4 max |
+| Cards | 3-5 cards | 40 | 3-4 short items per card |
 | Data callout | 0 | 20 | Big number + context line |
-| Quote | 0 | 80 | Attribution required |
+| Quote | 0 | 30 | Attribution required |

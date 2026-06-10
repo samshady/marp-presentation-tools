@@ -106,11 +106,25 @@ Read `output/plan.json` and `output/theme-contract.json`. Generate each slide as
 1. Write the YAML frontmatter (theme, paginate, footer)
 2. For each slide in plan.json:
    - Apply the assigned bento grid layout via scoped `<style>`
+   - **CRITICAL for card layouts**: set `section { display: block; }` and use a `<div class="card-row">` wrapper with flexbox (never set `section { display: flex; }` directly)
    - Use the theme-contract typography scale for all font sizes
    - Use theme-contract colors for all brand elements
-   - Follow content limits from slide-rules.md
+   - Follow content limits from slide-rules.md (40-60 words per slide, 5-6 bullets max)
    - Add `<!-- _class: title -->` for the first slide
-3. Output to `output/presentation.md`
+   - Never use em dashes or en dashes in content text
+   - Vary layout types across slides (mix: flat lists, tables, flex cards, icon + list)
+   - Keep bullets short - under 10 words each, scannable phrases not full sentences
+3. **Source and add decorative icons (MANDATORY)**: For decks with 6+ slides, add background-image icons on at least 50% of content slides:
+   ```bash
+   mkdir -p icons
+   # Search for relevant icons per slide topic
+   python3 tools/icons/find-icon.py search "lightbulb" --source iconify --limit 3
+   python3 tools/icons/find-icon.py fetch material-symbols:lightbulb --source iconify -o icons
+   # Color all icons with the PRIMARY/ACCENT brand color (e.g. #6EC8FF for cargobeamer)
+   # Use the light accent color, NOT the dark text color - icons need to pop on white bg
+   sed -i 's/currentColor/#6EC8FF/g' icons/*.svg
+   ```
+4. Output to `output/presentation.md`
 
 ### Stage 4 — Quality Assurance
 
@@ -136,6 +150,12 @@ Check all hard rules from marp-presentation-quality:
 Use a vision-capable model on rendered slide screenshots (from the analyze_slides.py pipeline) with the structured VLM prompts from the quality skill.
 
 **Fix loop**: For any QA failures, regenerate the affected slides in Stage 3 and re-run Stage 4. Loop up to 3 iterations maximum.
+
+**Cleanup**: After the final iteration passes QA, clean up temporary artifacts:
+```bash
+rm -f output/slide-*.png icons/*.svg
+rmdir icons 2>/dev/null; true
+```
 
 ### Output
 
