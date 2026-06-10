@@ -120,7 +120,7 @@ When asked to add icons to an existing presentation, **detect the theme from the
 | `unihalle` | `theme: unihalle` | `#9FBF47` (MLU Green) |
 | `default` | `theme: default` | Ask or use `#295A97` |
 
-Use the icon tool to search and download icons. The tool supports two sources:
+Use the icon tool to search and download icons. Requires `requests_oauthlib` for Noun Project: `pip install requests_oauthlib`. The tool supports two sources:
 
 **Iconify** (free, 275k+ icons, 200+ sets, no attribution needed):
 ```bash

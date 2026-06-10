@@ -1,7 +1,7 @@
 ---
 description: Search and fetch icons for Marp presentations from Iconify (free, 275k+ icons) or Noun Project
 ---
-Find icons for Marp presentations. Usage:
+Find icons for Marp presentations. Depends on `requests_oauthlib` for Noun Project — `pip install requests_oauthlib`.
 
 ## Search icons
 /find-icon search <query> [--limit N] [--source iconify|noun|both]
