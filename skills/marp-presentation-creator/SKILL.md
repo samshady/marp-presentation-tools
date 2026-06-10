@@ -455,6 +455,175 @@ section { display: block; }
 
 Use this for: process breakdowns, concept + examples, principle + failure modes, question + answers.
 
+### 8. 3x2 Bento grid layout (6-card principle grid)
+
+For presenting 6 related items of equal importance (principles, features, team members):
+
+```html
+# Slide Title
+
+<div class="principle-grid">
+
+<div class="principle-card">
+  <span class="principle-icon">🧠</span>
+  <h3>Title</h3>
+  <p>Brief description</p>
+</div>
+
+<!-- repeat for 5 more cards -->
+
+</div>
+
+<style scoped>
+section { display: block; }
+.principle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-top: 16px;
+}
+.principle-card {
+  background: #FAFAFB;
+  border: 0.75px solid #6EC8FF;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.principle-icon {
+  font-size: 32pt;
+  display: block;
+  margin-bottom: 6px;
+}
+.principle-card h3 {
+  font-size: 16pt;
+  font-weight: 700;
+  color: #00132B;
+  margin: 0 0 4px 0;
+}
+.principle-card p {
+  font-size: 12pt;
+  line-height: 1.4;
+  margin: 0;
+  color: #000;
+}
+</style>
+```
+
+Use for: feature lists, principle grids, gallery items, key points. Content limit: 1 short title + 1 short sentence per card.
+
+### 9. Horizontal process flow layout
+
+For showing a sequence of steps or pipeline stages:
+
+```html
+# Slide Title
+
+<div class="process-flow">
+
+<div class="step">
+  <div class="step-number">1</div>
+  <h3>Stage A</h3>
+  <p>Description of step 1</p>
+</div>
+
+<div class="step-arrow">→</div>
+
+<div class="step">
+  <div class="step-number">2</div>
+  <h3>Stage B</h3>
+  <p>Description of step 2</p>
+</div>
+
+<div class="step-arrow">→</div>
+
+<div class="step">
+  <div class="step-number">3</div>
+  <h3>Output</h3>
+  <p>Description of result</p>
+</div>
+
+</div>
+
+<div class="callout-box">
+  <span class="label">Key Insight</span>
+  <span class="callout-text">Supporting detail below the flow.</span>
+</div>
+
+<style scoped>
+section { display: block; }
+.process-flow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 24px;
+}
+.step {
+  flex: 1;
+  background: #FAFAFB;
+  border: 0.75px solid #6EC8FF;
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+}
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #6EC8FF;
+  color: white;
+  font-size: 18pt;
+  font-weight: 700;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+.step h3 {
+  font-size: 16pt;
+  font-weight: 700;
+  color: #00132B;
+  margin: 0 0 6px 0;
+}
+.step p {
+  font-size: 12pt;
+  line-height: 1.4;
+  margin: 0;
+  color: #000;
+}
+.step-arrow {
+  font-size: 28pt;
+  color: #6EC8FF;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.callout-box {
+  margin-top: 20px;
+  padding: 16px;
+  background: #FAFAFB;
+  border-left: 4px solid #6EC8FF;
+  border-radius: 6px;
+}
+.callout-box .label {
+  display: block;
+  font-size: 10pt;
+  font-weight: 700;
+  color: #6EC8FF;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.callout-box .callout-text {
+  display: block;
+  font-size: 14pt;
+  line-height: 1.5;
+  color: #000;
+}
+</style>
+```
+
+Use for: pipeline stages, workflows, step-by-step processes, timelines. Max 4 steps (3 with arrows), plus optional bottom callout. Content limit: 1 short title + 1 short sentence per step.
+
 ### 8. Typography system
 
 Use the 7-level hierarchy scale from `references/slide-rules.md`. Hard rules:
@@ -539,7 +708,7 @@ npx @marp-team/marp-cli --pptx --image-scale 4 --theme-set ~/Development/marp-pr
 
 Icons are REQUIRED for visual variety. Every deck with 6+ slides should have decorative icons on at least 50% of content slides (not title slides). Use the icon search tool to find relevant icons for each slide's topic.
 
-**Important**: Save icons to a directory at the same level as your markdown file (e.g., `./icons/` relative to the `.md` file). Marp resolves `<img src="icons/icon.svg">` relative to the markdown file location.
+**Important**: Use absolute paths for icon references. Marp resolves relative paths from the markdown file location, not the project root. Always use the full path: `src="/home/sam/Development/marp-presentation-tools/icons/icon.svg"` or `url("/home/sam/Development/marp-presentation-tools/icons/icon.svg")`.
 
 When asked to add icons to an existing presentation or create a new one, **detect the theme from the file's frontmatter** and use the correct primary color automatically:
 
@@ -625,19 +794,21 @@ WARNING: background-image places icons BEHIND text. Only use this for very faint
 - For card layouts, include the icon **inside the card** as a small `<img>` (40-50px) at the top
 - Use `flex: 1 1 0` not `flex: 1` on flexbox card children to ensure equal column widths
 
-### 12. Slide limits per section type
+### 15. Slide limits per section type
 
-| Type | Max bullets | Max words | Notes |
+| Type | Max items | Max words | Notes |
 |---|---|---|---|
-| Title | 0 | 15 | Just title + subtitle + author |
-| Agenda | 5-6 | 60 | One line per item |
-| Content (2-col) | 5-6 | 60 | Short scannable bullets |
-| Stat-row | 3 stat cards | 50 | Key metrics with blockquote + vis cards below |
+| Title | 0 | 15 | Full-bleed, centered |
+| Agenda | 5-6 rows | 60 | Table format |
+| Content (2-col) | 5-6 bullets | 60 | Short scannable bullets |
+| Stat-row | 3 stat cards | 50 | Metrics + blockquote + vis cards |
 | Asymmetric | 3 stacked cards | 60 | Main callout left + details right |
 | Table | 6 rows | 80 | Keep columns to 4 max |
-| Cards | 3-5 cards | 40 | 3-4 short items per card |
+| Cards (flex row) | 3-5 cards | 40 | 3-4 short items per card |
+| **3x2 Bento grid** | **6 cards** | **30** | **1 title + 1 sentence per card** |
+| **Process flow** | **3 steps** | **50** | **Horizontal steps + optional callout** |
 | Callout / emphasis | 2 mini-cards | 50 | Centered key finding + support |
 | Data callout | 0 | 20 | Big number + context line |
 | Quote | 0 | 30 | Attribution required |
 
-**Layout variety rule**: Use at least 5 different layout types in any deck of 8+ slides. Never have more than 2 consecutive slides with the same layout.
+**Layout variety rule**: Use at least 6 different layout types in any deck of 10+ slides. Never have more than 2 consecutive slides with the same layout. The deck should feel varied, not formulaic.

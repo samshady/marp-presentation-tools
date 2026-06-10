@@ -12,7 +12,7 @@ footer: "Confidential and Proprietary"
 
 <style scoped>
 section {
-  background-image: url("icons/material-symbols_rocket-launch.svg"), url("https://raw.githubusercontent.com/samshady/marp-presentation-tools/main/Cargobeamer_Logo.png");
+  background-image: url("/home/sam/Development/marp-presentation-tools/icons/material-symbols_rocket-launch.svg"), url("https://raw.githubusercontent.com/samshady/marp-presentation-tools/main/Cargobeamer_Logo.png");
   background-repeat: no-repeat, no-repeat;
   background-position: calc(100% - 60px) 75%, 30px 30px;
   background-size: 120px auto, 150px auto;
@@ -36,28 +36,78 @@ section {
 
 # Design Best Practices
 
-<div class="two-col">
+<div class="principle-grid">
 
-<div class="main">
-
-- **Cognitive Load Theory** - Mayer's 12 principles, validated across 200+ experiments
-- **Coherence** - every element must serve the message, nothing extraneous
-- **Signaling** - use contrast and bold for key takeaways, never font size alone
-- **Segmenting** - max 5 +/- 2 items per slide, progressive disclosure
-- **Pre-training** - define key terminology upfront in title and outline
-
+<div class="principle-card">
+  <span class="principle-icon">🧠</span>
+  <h3>Cognitive Load</h3>
+  <p>Mayer's 12 principles, 200+ experiments</p>
 </div>
 
-<div class="side-icon">
-  <img src="icons/material-symbols_lightbulb.svg" width="140" />
+<div class="principle-card">
+  <span class="principle-icon">✂️</span>
+  <h3>Coherence</h3>
+  <p>Omit extraneous elements</p>
+</div>
+
+<div class="principle-card">
+  <span class="principle-icon">🔦</span>
+  <h3>Signaling</h3>
+  <p>Contrast and bold for key takeaways</p>
+</div>
+
+<div class="principle-card">
+  <span class="principle-icon">🧩</span>
+  <h3>Segmenting</h3>
+  <p>Max 5+/-2 items per slide</p>
+</div>
+
+<div class="principle-card">
+  <span class="principle-icon">📖</span>
+  <h3>Pre-training</h3>
+  <p>Define key terms upfront</p>
+</div>
+
+<div class="principle-card">
+  <span class="principle-icon">🎯</span>
+  <h3>Key Insight</h3>
+  <p>Bento Grid templates produce best results</p>
 </div>
 
 </div>
 
 <style scoped>
-.two-col { display: flex; gap: 30px; margin-top: 10px; }
-.main { flex: 3; }
-.side-icon { flex: 1; display: flex; align-items: center; justify-content: center; }
+section { display: block; }
+.principle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-top: 16px;
+}
+.principle-card {
+  background: #FAFAFB;
+  border: 0.75px solid #6EC8FF;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.principle-icon {
+  font-size: 32pt;
+  display: block;
+  margin-bottom: 6px;
+}
+.principle-card h3 {
+  font-size: 16pt;
+  font-weight: 700;
+  color: #00132B;
+  margin: 0 0 4px 0;
+}
+.principle-card p {
+  font-size: 12pt;
+  line-height: 1.4;
+  margin: 0;
+  color: #000;
+}
 </style>
 
 ---
@@ -67,7 +117,7 @@ section {
 <div class="two-col icon-left">
 
 <div class="side-icon">
-  <img src="icons/material-symbols_layers.svg" width="120" />
+  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_layers.svg" width="120" />
 </div>
 
 <div class="main">
@@ -116,19 +166,19 @@ section {
 <div class="vis-row">
 
 <div class="vis-card">
-  <img src="icons/material-symbols_palette.svg" width="40" />
+  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_palette.svg" width="40" />
   <h4>Palette</h4>
   <p>Base > Surface > Primary > Accent > Text</p>
 </div>
 
 <div class="vis-card">
-  <img src="icons/material-symbols_bar-chart.svg" width="40" />
+  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_bar-chart.svg" width="40" />
   <h4>Best Charts</h4>
   <p>Bar, line, scatter, stacked bar</p>
 </div>
 
 <div class="vis-card">
-  <img src="icons/material-symbols_route.svg" width="40" />
+  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_route.svg" width="40" />
   <h4>Avoid</h4>
   <p>Pie &gt;3 segments, 3D, dense tables</p>
 </div>
@@ -325,19 +375,19 @@ section { display: block; }
 <div class="card-row">
 
 <div class="card">
-  <img src="icons/material-symbols_layers.svg" width="40" class="card-icon" />
+  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_layers.svg" width="40" class="card-icon" />
   <h3>sunbigfly/ppt-agent-skills</h3>
   <p>Multi-agent state machine, 4 subagents, JSON contract architecture, Pillow pixel QA, stateless resume</p>
 </div>
 
 <div class="card">
-  <img src="icons/material-symbols_build.svg" width="40" class="card-icon" />
+  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_build.svg" width="40" class="card-icon" />
   <h3>Akxan/ppt-agent-skill</h3>
   <p>26 production styles, 14 typography rules, 18 chart types (SVG), 8 failure modes with fix protocols</p>
 </div>
 
 <div class="card">
-  <img src="icons/material-symbols_bar-chart.svg" width="40" class="card-icon" />
+  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_bar-chart.svg" width="40" class="card-icon" />
   <h3>DeepSlide (arXiv)</h3>
   <p>Time-budgeted planner, Markov style inheritance, dual-scoreboard evaluation (artifact + delivery)</p>
 </div>
@@ -437,27 +487,107 @@ section { display: block; }
 
 # Vision QA & Style Contracts
 
-<div class="two-col">
+<div class="process-flow">
 
-<div class="main">
+<div class="step">
+  <div class="step-number">1</div>
+  <h3>Stage A</h3>
+  <p>Per-slide visual audit: balance, readability, color harmony</p>
+</div>
 
-- **Stage A**: per-slide visual audit - balance, readability, color
-- **Stage B**: deck-wide narrative audit - arc, progression, pacing
-- Use VLM for **semantic** checks, CSS/DOM for **quantitative**
-- **theme-contract.json**: full design system encoding per deck
+<div class="step-arrow">→</div>
+
+<div class="step">
+  <div class="step-number">2</div>
+  <h3>Stage B</h3>
+  <p>Deck-wide narrative audit: arc, progression, pacing</p>
+</div>
+
+<div class="step-arrow">→</div>
+
+<div class="step">
+  <div class="step-number">3</div>
+  <h3>Output</h3>
+  <p>theme-contract.json + qa-report.json fed back to agent</p>
+</div>
 
 </div>
 
-<div class="side-icon">
-  <img src="icons/material-symbols_check-circle.svg" width="130" />
-</div>
-
+<div class="principle-callout">
+  <span class="label">Key Design Decision</span>
+  <span class="principle-text">VLM for <strong>semantic</strong> checks; CSS/DOM inspection for <strong>quantitative</strong> measurements. Never ask VLM to measure margins.</span>
 </div>
 
 <style scoped>
-.two-col { display: flex; gap: 30px; margin-top: 10px; }
-.main { flex: 3; }
-.side-icon { flex: 1; display: flex; align-items: center; justify-content: center; }
+section { display: block; }
+.process-flow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 24px;
+}
+.step {
+  flex: 1;
+  background: #FAFAFB;
+  border: 0.75px solid #6EC8FF;
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+}
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #6EC8FF;
+  color: white;
+  font-size: 18pt;
+  font-weight: 700;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+.step h3 {
+  font-size: 16pt;
+  font-weight: 700;
+  color: #00132B;
+  margin: 0 0 6px 0;
+}
+.step p {
+  font-size: 12pt;
+  line-height: 1.4;
+  margin: 0;
+  color: #000;
+}
+.step-arrow {
+  font-size: 28pt;
+  color: #6EC8FF;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.principle-callout {
+  margin-top: 20px;
+  padding: 16px;
+  background: #FAFAFB;
+  border-left: 4px solid #6EC8FF;
+  border-radius: 6px;
+}
+.principle-callout .label {
+  display: block;
+  font-size: 10pt;
+  font-weight: 700;
+  color: #6EC8FF;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.principle-callout .principle-text {
+  display: block;
+  font-size: 14pt;
+  line-height: 1.5;
+  color: #000;
+}
 </style>
 
 ---
