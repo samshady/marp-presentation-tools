@@ -291,7 +291,7 @@ head -1 icons/*.svg | grep -o 'fill="[^"]*"'
 
 Then place icons on slides using one of these two methods. **Vary the method across slides** to avoid every slide looking the same:
 
-**Method A - Background-image** (for decorative icons that sit behind text):
+**Method A - Background-image** (ONLY for subtle decorative accents, not for visible icons):
 ```markdown
 <style scoped>
 section {
@@ -301,13 +301,10 @@ section {
   background-size: 80px auto;
 }
 </style>
-
-## Slide Heading
-
-- Content here...
 ```
+WARNING: background-image places icons BEHIND text. Only use this for very faint decorative elements (opacity 0.1-0.2) or when the icon is not critical to see. For visible icons always use Method B.
 
-**Method B - Inline img tag (preferred for visibility)** - use this for most content slides. Creates a 2-col layout with icon on the right:
+**Method B - Inline img tag (PREFERRED for visible icons)** - creates a 2-col layout with icon clearly visible beside text:
 ```markdown
 <div class="two-col">
 

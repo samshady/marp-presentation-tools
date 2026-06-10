@@ -92,20 +92,29 @@ section {
 
 # Color, Accessibility & Data Viz
 
-<style scoped>
-section {
-  background-image: url("icons/material-symbols_palette.svg");
-  background-repeat: no-repeat;
-  background-position: 60px 50%;
-  background-size: 100px auto;
-}
-</style>
+<div class="two-col">
+
+<div class="main">
 
 - **Palette structure**: Base > Surface > Primary > Accent > Text (3 levels)
 - **WCAG AA**: 4.5:1 body, 3:1 large text - avoid red-green pairs
 - **Max 5 colors per slide**, decorative gradients excluded
 - **Best charts**: bar (comparison), line (trends), scatter (correlation)
 - **Avoid**: pie charts over 3 segments, 3D charts, dense tables
+
+</div>
+
+<div class="side-icon">
+  <img src="icons/material-symbols_palette.svg" width="130" />
+</div>
+
+</div>
+
+<style scoped>
+.two-col { display: flex; gap: 30px; margin-top: 10px; }
+.main { flex: 3; }
+.side-icon { flex: 1; display: flex; align-items: center; justify-content: center; }
+</style>
 
 ---
 
