@@ -141,7 +141,7 @@ section { display: block; }
   margin-top: 20px;
 }
 .card {
-  flex: 1;
+  flex: 1 1 0;
   min-width: 0;
   background: #FAFAFB;
   border: 0.75px solid #6EC8FF;
@@ -289,14 +289,16 @@ sed -i 's/currentColor/#6EC8FF/g' icons/*.svg
 head -1 icons/*.svg | grep -o 'fill="[^"]*"'
 ```
 
-Then place them as decorative background-images via scoped `<style>` on alternating content slides:
+Then place icons on slides using one of these two methods. **Vary the method across slides** to avoid every slide looking the same:
+
+**Method A - Background-image** (for decorative icons that sit behind text):
 ```markdown
 <style scoped>
 section {
-  background-image: url("icons/tabler_robot.svg");
+  background-image: url("icons/material-symbols_lightbulb.svg");
   background-repeat: no-repeat;
   background-position: calc(100% - 60px) 50%;
-  background-size: 80px;
+  background-size: 80px auto;
 }
 </style>
 
@@ -305,14 +307,39 @@ section {
 - Content here...
 ```
 
+**Method B - Inline img tag (preferred for visibility)** - use this for most content slides. Creates a 2-col layout with icon on the right:
+```markdown
+<div class="two-col">
+
+<div class="main">
+- Bullet text here
+- More bullets
+</div>
+
+<div class="side-icon">
+  <img src="icons/material-symbols_lightbulb.svg" width="120" />
+</div>
+
+</div>
+
+<style scoped>
+.two-col { display: flex; gap: 30px; margin-top: 10px; }
+.main { flex: 3; }
+.side-icon { flex: 1; display: flex; align-items: center; justify-content: center; }
+/* Optional: reverse order to put icon on left */
+.icon-left .side-icon { order: -1; }
+</style>
+```
+
 **Icon placement rules**:
 - Read the `theme:` from frontmatter to pick the primary color automatically
 - Hardcode the brand color into the SVG using sed. Use the **primary/accent brand color** (e.g. `#6EC8FF` for cargobeamer, `#9FBF47` for unihalle) not the dark text color - icons need to visually pop on white backgrounds
-- Use `background-image` on `section` via scoped `<style>` - not `<img>` tags
-- Position with `calc(100% - 60px) 50%` (right side, vertically centered) or `60px 60%` (left side)
-- Size: 70-100px for content slides, 100px for title slides
-- **Place icons on alternating slides** so the deck is visually varied - not every slide needs one
+- **VARY icon placement across slides** - use inline `<img>` on some, background-image on others, alternate left/right positioning
+- **VARY icon sizes** - use 100-140px for 2-col layouts, 70-100px for background-image, 40-50px inside cards
+- Place icons on **every content slide** (not just alternating) - Mayer's Coherence principle says every visual must serve the message, and properly themed icons always do
 - Never add decorative icons to title slides (check for `<!-- _class: title -->` or skip the first slide)
+- For card layouts, include the icon **inside the card** as a small `<img>` (40-50px) at the top
+- Use `flex: 1 1 0` not `flex: 1` on flexbox card children to ensure equal column widths
 
 ### 9. Slide limits per section type
 

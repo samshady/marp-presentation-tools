@@ -123,6 +123,8 @@ Read `output/plan.json` and `output/theme-contract.json`. Generate each slide as
    # Color all icons with the PRIMARY/ACCENT brand color (e.g. #6EC8FF for cargobeamer)
    # Use the light accent color, NOT the dark text color - icons need to pop on white bg
    sed -i 's/currentColor/#6EC8FF/g' icons/*.svg
+   # Vary icon placement across slides - use inline img tags for 2-col layouts,
+   # background-image for decoration, small icons inside cards
    ```
 4. Output to `output/presentation.md`
 
