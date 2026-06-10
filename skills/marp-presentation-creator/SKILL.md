@@ -624,7 +624,7 @@ section { display: block; }
 
 Use for: pipeline stages, workflows, step-by-step processes, timelines. Max 4 steps (3 with arrows), plus optional bottom callout. Content limit: 1 short title + 1 short sentence per step.
 
-### 10. Image + sidebar layout
+### 11. Image + sidebar layout
 
 Pairs a visual (chart, diagram, photo) with supporting commentary. Based on research guidelines:
 
@@ -633,7 +633,7 @@ Pairs a visual (chart, diagram, photo) with supporting commentary. Based on rese
 - **Captions**: directly beneath image, italic, smaller font.
 - **Size**: images 50-70% of slide width for content slides. Full-bleed only for hero/section dividers.
 - **No 3D or overstyled charts** per Tufte — high data-ink ratio.
-- **Absolute paths required**: use full paths like `/home/sam/.../image.png` (Marp resolves relative to CWD).
+- **Absolute paths required**: use full paths like `/home/sam/Development/marp-presentation-tools/output/image.png` (Marp resolves relative paths from CWD, not the markdown file).
 
 ```html
 # Slide Title
@@ -702,16 +702,16 @@ section { display: block; }
 
 Content limit: 1 image + caption, 2-3 text blocks in sidebar.
 
-### 11. Typography system
+### 12. Typography system
 
 Use the 7-level hierarchy scale from `references/slide-rules.md`. Hard rules:
-- Body text: ≥14px and ≤24px, line-height 1.4-1.6
+- Body text: &gt;=14px and &lt;=24px, line-height 1.4-1.6
 - Max 3 font families per deck
 - No text under 10px
-- Max line length ≤75ch for body text
-- Avoid light font weights (<400) on projected slides
+- Max line length &lt;=75ch for body text
+- Avoid light font weights (&lt;400) on projected slides
 
-### 12. Scoped style templates for common layouts
+### 13. Scoped style templates for common layouts
 
 #### Title slide (any theme)
 ```html
@@ -766,7 +766,7 @@ section {
 <span class="context">users onboarded in Q1 2026</span>
 ```
 
-### 13. Rendering
+### 14. Rendering
 
 **VS Code** — themes are registered globally via VS Code settings (remote URLs), so any `.md` with `theme: cargobeamer` or `theme: unihalle` just works.
 
@@ -782,7 +782,7 @@ npx @marp-team/marp-cli --pdf --theme-set ~/Development/marp-presentation-tools/
 npx @marp-team/marp-cli --pptx --image-scale 4 --theme-set ~/Development/marp-presentation-tools/themes/cargobeamer.css presentation.md
 ```
 
-### 14. Icons and visual assets
+### 15. Icons and visual assets
 
 Icons are REQUIRED for visual variety. Every deck with 6+ slides should have decorative icons on at least 50% of content slides (not title slides). Use the icon search tool to find relevant icons for each slide's topic.
 
@@ -872,7 +872,7 @@ WARNING: background-image places icons BEHIND text. Only use this for very faint
 - For card layouts, include the icon **inside the card** as a small `<img>` (40-50px) at the top
 - Use `flex: 1 1 0` not `flex: 1` on flexbox card children to ensure equal column widths
 
-### 15. Slide limits per section type
+### 16. Slide limits per section type
 
 | Type | Max items | Max words | Notes |
 |---|---|---|---|

@@ -50,10 +50,11 @@ This will:
 
 Use `references/slide-rules.md` to verify these hard rules. Check each by inspecting the rendered HTML output (`npx @marp-team/marp-cli --html presentation.md -o presentation.html` then inspect with Puppeteer/jsdom or manually via browser DevTools):
 
-#### Content Formatting (RULE-CF-01)
+#### Content Formatting (RULE-CF-01, RULE-CF-02)
 | Rule | Check | Target | Fix |
 |------|-------|--------|-----|
 | CF-01 | Em dash usage | Zero em dashes (---) or en dashes (--) in slide content | Replace with hyphen (-) or colon (:) |
+| CF-02 | Bullet spacing | Theme handles via `::before { content: "-- " }` | Do not override in scoped styles |
 
 #### Typography (RULE-TY-01 through RULE-TY-07)
 | Rule | Check | Target | Fix |
@@ -172,7 +173,7 @@ Respond ONLY with JSON:
 After analysis, provide:
 - Per-slide overflow warnings (❌)
 - Per-slide underuse warnings (⚠)
-- Content formatting violations (RULE-CF-01: em dash check)
+- Content formatting violations (RULE-CF-01: em dash, RULE-CF-02: bullet spacing)
 - Typography rule violations (RULE-TY-*)
 - Layout rule violations (RULE-LY-*)  
 - Color/contrast violations (RULE-CO-*)
