@@ -370,6 +370,76 @@ section { display: block; }
 
 ---
 
+# Tool Comparison: Quality Approach
+
+<div class="image-slide">
+
+<div class="image-container">
+  <img src="/home/sam/Development/marp-presentation-tools/output/chart-visual.png" class="slide-image" />
+  <span class="image-caption">AI presentation tools ranked by quality feedback mechanism</span>
+</div>
+
+<div class="image-sidebar">
+
+<h3>Key Finding</h3>
+<p>Tools rely on template constraints and human review — no automated visual QA loop exists.</p>
+
+<h3>Our Advantage</h3>
+<p>Code-first agentic workflow with pixel analysis, CSS/DOM inspection, and structured VLM evaluation closes this gap.</p>
+
+</div>
+
+</div>
+
+<style scoped>
+section { display: block; }
+.image-slide {
+  display: flex;
+  gap: 24px;
+  margin-top: 14px;
+  align-items: flex-start;
+}
+.image-container {
+  flex: 2;
+}
+.slide-image {
+  width: 100%;
+  border: 0.75px solid #6EC8FF;
+  border-radius: 10px;
+  display: block;
+}
+.image-caption {
+  display: block;
+  font-size: 11pt;
+  color: #666;
+  font-style: italic;
+  margin-top: 6px;
+  text-align: center;
+}
+.image-sidebar {
+  flex: 1;
+  background: #FAFAFB;
+  border: 0.75px solid #6EC8FF;
+  border-radius: 10px;
+  padding: 18px;
+}
+.image-sidebar h3 {
+  font-size: 15pt;
+  font-weight: 700;
+  color: #00132B;
+  margin: 0 0 6px 0;
+}
+.image-sidebar p {
+  font-size: 13pt;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+  color: #000;
+}
+.image-sidebar p:last-child { margin-bottom: 0; }
+</style>
+
+---
+
 # Open-Source Agentic Pipelines
 
 <div class="card-row">

@@ -60,14 +60,14 @@ Before generating slides, plan the deck structure. Use the SCQA framework for ex
 | Falling action | Implementation details |
 | Resolution | Outcome / next steps |
 
-### 1. Determine theme from context
+### 2. Determine theme from context
 
 | If user mentions | Use theme | Logo |
 |---|---|---|
 | CargoBeamer, CB, claims, business, confidential | `cargobeamer` | Auto via CSS background |
 | MLU, Uni Halle, university, seminar, Projektseminar | `unihalle` | Auto via CSS `background-image` on section |
 
-### 2. Create the markdown file
+### 3. Create the markdown file
 
 **cargobeamer** — logo auto-embedded:
 ```yaml
@@ -92,7 +92,7 @@ footer: "Seminar: [Title] | SS-26"
 
 Use `<!-- _class: title -->` on the first slide to hide the logo.
 
-### 3. Slide structure constraints
+### 4. Slide structure constraints
 
 Refer to `references/slide-rules.md` for:
 - Max words per slide: 40-60 for content slides (short, scannable bullets), up to 100 for data slides
@@ -105,7 +105,7 @@ Refer to `references/slide-rules.md` for:
 - Use `<style scoped>` for per-slide layout overrides
 - **Use short scannable bullets** - prefer pipe-separated inline text in cards over stacked bullet lists
 
-### 4. Multi-column card layouts (CRITICAL)
+### 5. Multi-column card layouts (CRITICAL)
 
 For any slide with cards or multiple columns, you MUST follow this exact pattern. Marp's internal `<section>` rendering breaks nested flexbox/grid layouts unless you reset `section { display: block; }` first.
 
@@ -168,7 +168,7 @@ section { display: block; }
 | 4 cards | 3 items each | Roadmap phases, quadrants |
 | Grid 2x2 (4 cards) | 3 items each | Dense information |
 
-### 5. Callout / emphasis layout (alternative to card rows)
+### 6. Callout / emphasis layout (alternative to card rows)
 
 For highlighting a single key finding or recommendation, use a centered callout box with optional supporting mini-cards below:
 
@@ -248,7 +248,7 @@ section { display: block; }
 
 Use this layout when you have 1 key message + 2 supporting details. Best for: findings, recommendations, conclusions, call-to-action slides.
 
-### 6. Stat-row layout (data-focused)
+### 7. Stat-row layout (data-focused)
 
 For presenting key metrics or WCAG criteria, use a top row of stat cards + optional blockquote + bottom row of detail cards:
 
@@ -349,7 +349,7 @@ blockquote {
 
 Use this layout for data-heavy content: metrics, specifications, criteria, benchmarks.
 
-### 7. Asymmetric callout + stacked cards layout
+### 8. Asymmetric callout + stacked cards layout
 
 For pairing a main emphasis point with supporting details on the side:
 
@@ -455,7 +455,7 @@ section { display: block; }
 
 Use this for: process breakdowns, concept + examples, principle + failure modes, question + answers.
 
-### 8. 3x2 Bento grid layout (6-card principle grid)
+### 9. 3x2 Bento grid layout (6-card principle grid)
 
 For presenting 6 related items of equal importance (principles, features, team members):
 
@@ -511,7 +511,7 @@ section { display: block; }
 
 Use for: feature lists, principle grids, gallery items, key points. Content limit: 1 short title + 1 short sentence per card.
 
-### 9. Horizontal process flow layout
+### 10. Horizontal process flow layout
 
 For showing a sequence of steps or pipeline stages:
 
@@ -624,7 +624,85 @@ section { display: block; }
 
 Use for: pipeline stages, workflows, step-by-step processes, timelines. Max 4 steps (3 with arrows), plus optional bottom callout. Content limit: 1 short title + 1 short sentence per step.
 
-### 8. Typography system
+### 10. Image + sidebar layout
+
+Pairs a visual (chart, diagram, photo) with supporting commentary. Based on research guidelines:
+
+- **Spatial Contiguity** (Mayer): place related text and graphics near each other. 2-col layout with image on one side, text on the other.
+- **Consistent styling**: all images same border radius and border color within a deck.
+- **Captions**: directly beneath image, italic, smaller font.
+- **Size**: images 50-70% of slide width for content slides. Full-bleed only for hero/section dividers.
+- **No 3D or overstyled charts** per Tufte — high data-ink ratio.
+- **Absolute paths required**: use full paths like `/home/sam/.../image.png` (Marp resolves relative to CWD).
+
+```html
+# Slide Title
+
+<div class="image-slide">
+
+<div class="image-container">
+  <img src="/absolute/path/to/image.png" class="slide-image" />
+  <span class="image-caption">Descriptive caption</span>
+</div>
+
+<div class="image-sidebar">
+
+<h3>Key Point</h3>
+<p>Supporting text related to the visual.</p>
+
+</div>
+
+</div>
+
+<style scoped>
+section { display: block; }
+.image-slide {
+  display: flex;
+  gap: 24px;
+  margin-top: 14px;
+  align-items: flex-start;
+}
+.image-container { flex: 2; }
+.slide-image {
+  width: 100%;
+  border: 0.75px solid #6EC8FF;
+  border-radius: 10px;
+  display: block;
+}
+.image-caption {
+  display: block;
+  font-size: 11pt;
+  color: #666;
+  font-style: italic;
+  margin-top: 6px;
+  text-align: center;
+}
+.image-sidebar {
+  flex: 1;
+  background: #FAFAFB;
+  border: 0.75px solid #6EC8FF;
+  border-radius: 10px;
+  padding: 18px;
+}
+.image-sidebar h3 {
+  font-size: 15pt;
+  font-weight: 700;
+  color: #00132B;
+  margin: 0 0 6px 0;
+}
+.image-sidebar p {
+  font-size: 13pt;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+  color: #000;
+}
+.image-sidebar p:last-child { margin-bottom: 0; }
+</style>
+```
+
+Content limit: 1 image + caption, 2-3 text blocks in sidebar.
+
+### 11. Typography system
 
 Use the 7-level hierarchy scale from `references/slide-rules.md`. Hard rules:
 - Body text: ≥14px and ≤24px, line-height 1.4-1.6
@@ -633,7 +711,7 @@ Use the 7-level hierarchy scale from `references/slide-rules.md`. Hard rules:
 - Max line length ≤75ch for body text
 - Avoid light font weights (<400) on projected slides
 
-### 6. Scoped style templates for common layouts
+### 12. Scoped style templates for common layouts
 
 #### Title slide (any theme)
 ```html
@@ -688,7 +766,7 @@ section {
 <span class="context">users onboarded in Q1 2026</span>
 ```
 
-### 7. Rendering
+### 13. Rendering
 
 **VS Code** — themes are registered globally via VS Code settings (remote URLs), so any `.md` with `theme: cargobeamer` or `theme: unihalle` just works.
 
@@ -704,7 +782,7 @@ npx @marp-team/marp-cli --pdf --theme-set ~/Development/marp-presentation-tools/
 npx @marp-team/marp-cli --pptx --image-scale 4 --theme-set ~/Development/marp-presentation-tools/themes/cargobeamer.css presentation.md
 ```
 
-### 8. Icons and visual assets
+### 14. Icons and visual assets
 
 Icons are REQUIRED for visual variety. Every deck with 6+ slides should have decorative icons on at least 50% of content slides (not title slides). Use the icon search tool to find relevant icons for each slide's topic.
 
