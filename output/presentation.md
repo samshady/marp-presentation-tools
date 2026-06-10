@@ -205,26 +205,74 @@ section { display: block; }
 
 # Common Gaps & Best Format
 
-<div class="two-col">
+<div class="callout">
 
-<div class="main">
-
-- **No VLM-based semantic QA** - all tools use pixel-statistical only
-- **Format recommendation**: HTML/CSS as primary target, convert to Marp
-- **DeepSlide**: logical-chain planner, style inheritance, time budgets
+<span class="big-number">VLM Gap</span>
+<span class="callout-text">No open-source tool uses vision-language models for semantic slide QA. Analysis is purely pixel-statistical.</span>
 
 </div>
 
-<div class="side-icon">
-  <img src="icons/material-symbols_visibility.svg" width="130" />
+<div class="callout-row">
+
+<div class="mini-card">
+  <span class="label">Best Format</span>
+  HTML/CSS as primary target, convert to Marp markdown
+</div>
+
+<div class="mini-card">
+  <span class="label">DeepSlide Innovation</span>
+  Logical-chain planner with time budgets, style inheritance, dual-scoreboard evaluation
 </div>
 
 </div>
 
 <style scoped>
-.two-col { display: flex; gap: 30px; margin-top: 10px; }
-.main { flex: 3; }
-.side-icon { flex: 1; display: flex; align-items: center; justify-content: center; }
+section { display: block; }
+.callout {
+  text-align: center;
+  margin: 24px 0 20px 0;
+  padding: 24px;
+  background: #FAFAFB;
+  border: 1.5px solid #6EC8FF;
+  border-radius: 12px;
+}
+.big-number {
+  display: block;
+  font-size: 36pt;
+  font-weight: 700;
+  color: #6EC8FF;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.callout-text {
+  display: block;
+  font-size: 17pt;
+  line-height: 1.5;
+  color: #000;
+}
+.callout-row {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+}
+.mini-card {
+  flex: 1 1 0;
+  background: #FAFAFB;
+  border: 0.75px solid #B6E3FF;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 14pt;
+  line-height: 1.4;
+}
+.label {
+  display: block;
+  font-size: 11pt;
+  font-weight: 700;
+  color: #00132B;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
 </style>
 
 ---

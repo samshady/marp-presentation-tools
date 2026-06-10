@@ -168,6 +168,86 @@ section { display: block; }
 | 4 cards | 3 items each | Roadmap phases, quadrants |
 | Grid 2x2 (4 cards) | 3 items each | Dense information |
 
+### 5. Callout / emphasis layout (alternative to card rows)
+
+For highlighting a single key finding or recommendation, use a centered callout box with optional supporting mini-cards below:
+
+```html
+# Slide Title
+
+<div class="callout">
+
+<span class="big-number">Key Finding</span>
+<span class="callout-text">One sentence explaining the key finding or recommendation.</span>
+
+</div>
+
+<div class="callout-row">
+
+<div class="mini-card">
+  <span class="label">Supporting Point 1</span>
+  Brief explanation here
+</div>
+
+<div class="mini-card">
+  <span class="label">Supporting Point 2</span>
+  Brief explanation here
+</div>
+
+</div>
+
+<style scoped>
+section { display: block; }
+.callout {
+  text-align: center;
+  margin: 24px 0 20px 0;
+  padding: 24px;
+  background: #FAFAFB;
+  border: 1.5px solid #6EC8FF;
+  border-radius: 12px;
+}
+.big-number {
+  display: block;
+  font-size: 36pt;
+  font-weight: 700;
+  color: #6EC8FF;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.callout-text {
+  display: block;
+  font-size: 17pt;
+  line-height: 1.5;
+  color: #000;
+}
+.callout-row {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+}
+.mini-card {
+  flex: 1 1 0;
+  background: #FAFAFB;
+  border: 0.75px solid #B6E3FF;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 14pt;
+  line-height: 1.4;
+}
+.label {
+  display: block;
+  font-size: 11pt;
+  font-weight: 700;
+  color: #00132B;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+</style>
+```
+
+Use this layout when you have 1 key message + 2 supporting details. Best for: findings, recommendations, conclusions, call-to-action slides.
+
 ### 5. Typography system
 
 Use the 7-level hierarchy scale from `references/slide-rules.md`. Hard rules:
@@ -338,14 +418,17 @@ WARNING: background-image places icons BEHIND text. Only use this for very faint
 - For card layouts, include the icon **inside the card** as a small `<img>` (40-50px) at the top
 - Use `flex: 1 1 0` not `flex: 1` on flexbox card children to ensure equal column widths
 
-### 9. Slide limits per section type
+### 10. Slide limits per section type
 
 | Type | Max bullets | Max words | Notes |
 |---|---|---|---|
 | Title | 0 | 15 | Just title + subtitle + author |
 | Agenda | 5-6 | 60 | One line per item |
-| Content | 5-6 | 60 | Short scannable bullets |
+| Content (2-col) | 5-6 | 60 | Short scannable bullets |
 | Table | 6 rows | 80 | Keep columns to 4 max |
 | Cards | 3-5 cards | 40 | 3-4 short items per card |
+| Callout / emphasis | 2 mini-cards | 50 | Centered key finding + support |
 | Data callout | 0 | 20 | Big number + context line |
 | Quote | 0 | 30 | Attribution required |
+
+**Layout variety rule**: Use at least 4 different layout types in any deck of 8+ slides. Never have more than 2 consecutive slides with the same layout.
