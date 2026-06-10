@@ -22,11 +22,35 @@ description: |
 
 - `references/cargobeamer-palette.md` — Official brand color palette and typography
 - `references/unihalle-palette.md` — MLU brand color palette
-- `references/slide-rules.md` — Slide structure constraints
+- `references/slide-rules.md` — Slide structure constraints, typography scale, layout templates, failure modes
 
 ## Workflow
 
 When asked to create a Marp presentation:
+
+### 0. Determine narrative structure and slide count
+
+Before generating slides, plan the deck structure. Use the SCQA framework for executive/strategy decks, or a storytelling arc for narrative-heavy presentations.
+
+**Slide count heuristic**: 1 slide per ~2 minutes. A 30-minute talk = 15-18 slides. Plan to this constraint.
+
+**SCQA Structure** (use for business/strategy):
+| Phase | Slides | Purpose |
+|-------|--------|---------|
+| Situation | 1 (title) | Context we all agree on |
+| Complication | 1-2 | What changed / the problem |
+| Question + Answer | 2-3 | How we solve it |
+| Supporting arguments | 5-8 | Evidence in pyramidal structure |
+| Close | 1-2 | Summary, next steps, CTA |
+
+**Storytelling Arc** (use for narrative-heavy):
+| Arc Stage | Slide Mapping |
+|-----------|---------------|
+| Exposition | Context / background |
+| Rising action | Challenge / problem details |
+| Climax | Key insight / solution reveal |
+| Falling action | Implementation details |
+| Resolution | Outcome / next steps |
 
 ### 1. Determine theme from context
 
@@ -67,9 +91,59 @@ Refer to `references/slide-rules.md` for:
 - Max bullet items: 8-9 (cargobeamer), 10-12 (unihalle)
 - Font sizes: h1=40pt/1.4em, h2=28pt/1.1em, body=20pt/0.9em
 - Bottom margin should be >10pt (use overflow: hidden on sections)
+- 7 bento grid layout templates available
+- Failure mode catalog (F1-F8) for anti-pattern avoidance
+- Typography hard rules (RULE-TY-01 through RULE-TY-07)
 - Use `<style scoped>` for per-slide layout overrides
 
-### 4. Scoped style templates for common layouts
+### 4. Bento grid layout templates
+
+Choose the layout template that matches the slide's content type:
+
+| # | Template | CSS Grid | Best For |
+|---|----------|----------|----------|
+| 1 | Full-bleed (no grid) | — | Title, section dividers |
+| 2 | 2-col symmetric | `grid-template-columns: 1fr 1fr` | Compare-contrast |
+| 3 | 2-col asymmetric 60:40 | `grid-template-columns: 3fr 2fr` | Content + supporting visual |
+| 4 | 3-column | `grid-template-columns: 1fr 1fr 1fr` | Feature lists, dashboards |
+| 5 | 4-card bento 2×2 | `grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr` | Dense info quadrants |
+| 6 | 6-card bento 3×2 | `grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr` | Gallery, team, use cases |
+| 7 | Center single column | `place-items: center; text-align: center` | Quotes, key numbers, CTAs |
+
+```html
+<style scoped>
+/* 2-col symmetric example */
+section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+/* 4-card bento example */
+section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+}
+section > * {
+  background: var(--surface, #FAFAFB);
+  border: 0.75px solid var(--primary, #6EC8FF);
+  border-radius: 8px;
+  padding: 16px;
+}
+</style>
+```
+
+### 5. Typography system
+
+Use the 7-level hierarchy scale from `references/slide-rules.md`. Hard rules:
+- Body text: ≥14px and ≤24px, line-height 1.4-1.6
+- Max 3 font families per deck
+- No text under 10px
+- Max line length ≤75ch for body text
+- Avoid light font weights (<400) on projected slides
+
+### 6. Scoped style templates for common layouts
 
 #### Title slide (any theme)
 ```html
@@ -87,6 +161,9 @@ section {
 #### Cards layout (cargobeamer)
 Use cards with `#FAFAFB` background, `0.75px solid #6EC8FF` border, rounded corners.
 
+#### Cards layout (unihalle)
+Use cards with `#F5F7FA` background, `0.75px solid #295A97` border, rounded corners.
+
 #### Table layout
 For cargobeamer: table header `#B6E3FF` bg, black text.
 For unihalle: table header `#295A97` bg, white text.
@@ -94,7 +171,34 @@ For unihalle: table header `#295A97` bg, white text.
 #### Agenda slide
 Use scoped styles with `.focus-text` spans for descriptions under each agenda item.
 
-### 5. Rendering
+#### Data callout slide
+```html
+<style scoped>
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.big-number {
+  font-size: 72pt;
+  font-weight: 700;
+  color: var(--primary, #6EC8FF);
+  line-height: 1;
+}
+.context {
+  font-size: 18pt;
+  color: var(--text-secondary);
+  margin-top: 16px;
+}
+</style>
+
+<span class="big-number">2.3M</span>
+<span class="context">users onboarded in Q1 2026</span>
+```
+
+### 7. Rendering
 
 **VS Code** — themes are registered globally via VS Code settings (remote URLs), so any `.md` with `theme: cargobeamer` or `theme: unihalle` just works.
 
@@ -110,7 +214,7 @@ npx @marp-team/marp-cli --pdf --theme-set ~/Development/marp-presentation-tools/
 npx @marp-team/marp-cli --pptx --image-scale 4 --theme-set ~/Development/marp-presentation-tools/themes/cargobeamer.css presentation.md
 ```
 
-### 6. Icons and visual assets
+### 8. Icons and visual assets
 
 When asked to add icons to an existing presentation, **detect the theme from the file's frontmatter** and use the correct primary color automatically:
 
@@ -170,7 +274,7 @@ section {
 - Never add decorative icons to title slides (check for `<!-- _class: title -->` or skip the first slide)
 - Never use `position: absolute` — it clashes with headers/footers/pagination
 
-### 7. Slide limits per section type
+### 9. Slide limits per section type
 
 | Type | Max bullets | Max words | Notes |
 |---|---|---|---|
@@ -179,3 +283,5 @@ section {
 | Content | 8-9 | 250 | Split if more content needed |
 | Table | 6 rows | 100 | Keep columns to 4 max |
 | Cards | 5 cards | 200 | 3-5 points per card |
+| Data callout | 0 | 20 | Big number + context line |
+| Quote | 0 | 80 | Attribution required |

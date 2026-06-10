@@ -271,11 +271,12 @@ def generate_report(md_path: str, pdf_path: str, images: list, stats: dict):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python3 analyze_slides.py presentation.md [--fix]")
+        print("Usage: python3 analyze_slides.py presentation.md [--fix] [--json]")
         sys.exit(1)
 
     md_path = sys.argv[1]
     fix_mode = "--fix" in sys.argv
+    json_mode = "--json" in sys.argv
 
     if not os.path.exists(md_path):
         print(f"Error: File not found: {md_path}")
@@ -316,7 +317,33 @@ def main():
         report = generate_report(md_path, pdf_path, images, {
             "content_stats": content_stats,
         })
-        print(report)
+
+        if json_mode:
+            # Build machine-readable JSON output
+            slides_data = []
+            for i, img_path in enumerate(images):
+                info = content_stats.get(i, {})
+                est = estimation.get("slides", [{}])[i] if i < len(estimation.get("slides", [])) else {}
+                slides_data.append({
+                    "slide": i + 1,
+                    "issues": info.get("issues", []),
+                    "bottom_margin_pt": info.get("bottom_margin_pt"),
+                    "content_height_px": info.get("content_height_px"),
+                    "words": est.get("words", 0),
+                    "bullets": est.get("bullets", 0),
+                    "headers": est.get("headers", 0),
+                    "estimated_lines": est.get("estimated_lines", 0),
+                })
+            output = json.dumps({
+                "file": md_path,
+                "total_slides": len(images),
+                "slides": slides_data,
+                "total_issues": sum(len(s.get("issues", [])) for s in slides_data),
+                "has_overflow": any("overflow" in s.get("issues", []) for s in slides_data),
+            }, indent=2)
+            print(output)
+        else:
+            print(report)
 
         # Step 6: Summary
         all_issues = []

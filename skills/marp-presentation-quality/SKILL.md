@@ -3,9 +3,10 @@ name: marp-presentation-quality
 description: |
   Validate and fix Marp presentation slides for visual quality. Detects text
   overflow, underused space, inconsistent styling, and content density issues
-  using pixel analysis and markdown heuristics. This skill should be used when
-  the user asks to check, validate, fix, review, or ensure quality of a Marp
-  presentation.
+  using pixel analysis, CSS/DOM inspection rules, and structured VLM review.
+  Enforces typography hard rules, WCAG color contrast, layout constraints,
+  and failure mode checks (F1-F8). This skill should be used when the user
+  asks to check, validate, fix, review, or ensure quality of a Marp presentation.
 ---
 
 # marp-presentation-quality
@@ -14,13 +15,15 @@ description: |
 
 - `scripts/analyze_slides.py` — Render a Marp markdown file to PDF, convert to
   images, and analyze pixel content for overflow/underuse. Exits with code 1
-  if any overflow detected.
+  if any overflow detected. Supports `--json` for pipeline contract output.
 
 ## References
 
 - `references/slide-rules.md` — Full constraint definitions (dimensions, typography,
-  safe limits, overflow detection, theme-specific rules)
-- `references/presentation-best-practices.md` — General good presentation design rules
+  safe limits, overflow detection, theme-specific rules), bento grid layouts,
+  7-level hierarchy scale, WCAG contrast rules, failure mode catalog (F1-F8)
+- `references/presentation-best-practices.md` — Mayer's principles, SCQA narrative,
+  data viz decision framework, color psychology, WCAG rules
 
 ## Workflow
 
@@ -32,24 +35,56 @@ When asked to validate or fix a Marp presentation:
 python3 scripts/analyze_slides.py presentation.md
 ```
 
+For machine-readable output (pipeline consumption):
+```bash
+python3 scripts/analyze_slides.py presentation.md --json > qa-report.json
+```
+
 This will:
 - Convert to PDF via `npx @marp-team/marp-cli`
 - Render pages to PNG via `pdftoppm`
 - Scan pixels for content proximity to edges
 - Report per-slide: ✅ OK, ❌ OVERFLOW, ⚠ UNDERUSED
 
-### 2. Fix common styling inconsistencies
+### 2. Run quantitative CSS/DOM inspection checks
 
-Use `references/slide-rules.md` to check:
+Use `references/slide-rules.md` to verify these hard rules. Check each by inspecting the rendered HTML output (`npx @marp-team/marp-cli --html presentation.md -o presentation.html` then inspect with Puppeteer/jsdom or manually via browser DevTools):
 
-| Check | Target | How to fix |
-|---|---|---|
-| Font sizes match theme | h1=40pt, h2=28pt, body=20pt (cargobeamer) | Update scoped styles |
-| Bottom margin safe | >10pt from bottom | Reduce font size or content |
-| Color consistency | Matches brand palette | Replace hex values |
-| Bullet density | ≤9 per slide (cargobeamer) | Split slide or condense |
-| Table headers styled | `#B6E3FF` (cargobeamer) / `#295A97` (unihalle) | Add scoped styles |
-| Card borders | `0.75px solid #6EC8FF` (cargobeamer) | Check card scoped styles |
+#### Typography (RULE-TY-01 through RULE-TY-07)
+| Rule | Check | Target | Fix |
+|------|-------|--------|-----|
+| TY-01 | Body text size | ≥14px and ≤24px | Adjust font-size in scoped style |
+| TY-02 | Heading-body contrast | ≥2:1 size ratio or ≥200 weight diff | Increase heading size/weight |
+| TY-03 | Font family count | ≤3 families per deck | Consolidate fonts |
+| TY-04 | Line height | Body: 1.4-1.6, Headings: 1.1-1.3 | Set unitless line-height in CSS |
+| TY-05 | Minimum text size | No text <10px (FAIL) | Remove or enlarge tiny elements |
+| TY-06 | Line length | ≤75ch for multi-line body | Narrow column width |
+| TY-07 | Font weight on projection | ≥400 (Regular) | Avoid Light/Thin weights |
+
+#### Layout (RULE-LY-01 through RULE-LY-07)
+| Rule | Check | Target | Fix |
+|------|-------|--------|-----|
+| LY-01 | Aspect ratio | 16:9 (1280×720 minimum) | Check Marp config |
+| LY-02 | Side margins | ≥40px on content slides | Adjust section padding |
+| LY-03 | Top/bottom margins | ≥30px on content slides | Adjust section padding |
+| LY-04 | Border radius consistency | ±2px across cards | Unify border-radius value |
+| LY-05 | Overflow | No elements outside bounds (FAIL) | Reduce content or font size |
+| LY-06 | Whitespace | ≥10% of slide area empty | Add spacing or reduce content |
+| LY-07 | Item count | Max 5±2 per slide (FAIL if >9) | Split slide or condense |
+
+#### Color & Contrast (RULE-CO-01 through RULE-CO-03)
+| Rule | Check | Target | Fix |
+|------|-------|--------|-----|
+| CO-01 | Text-background contrast | WCAG AA: 4.5:1 body, 3:1 large text | Darken text or lighten bg |
+| CO-02 | CVD-safe colors | No red-green data pairs | Use blue-orange or patterns |
+| CO-03 | Color count | ≤5 distinct colors per slide | Consolidate to palette |
+
+#### Density (RULE-DE-01 through RULE-DE-03)
+| Rule | Check | Target | Fix |
+|------|-------|--------|-----|
+| DE-01 | Card budget | ≤5 content cards | Merge or remove cards |
+| DE-02 | Chart budget | ≤2 charts per slide | Move charts to separate slides |
+| DE-03 | Decoration ratio | ≤20% of DOM nodes | Remove excess decorative elements |
 
 ### 3. Run fix scripts for known patterns
 
@@ -59,26 +94,78 @@ python3 Tools/slide-fixes/fix_slides.py
 python3 Tools/slide-fixes/fix_slides2.py
 ```
 
-### 4. Check icon placement
+### 4. Check failure modes (F1-F8 catalog)
 
-If the presentation uses decorative icons, verify:
+Cross-reference detected issues against the failure mode catalog:
+| Issue Pattern | Likely Failure Mode | Fix Protocol |
+|---|---|---|
+| Too much whitespace, sparse content | F1 Underfill | Add content or merge slides |
+| Text cut off, overflow warnings | F2 Overfill | Reduce font or content count |
+| Decorative icons with no data cards | F3 Decorative substitution | Replace decoration with content |
+| Different margins on similar cards | F4 Inconsistent spacing | Normalize CSS values |
+| Body text larger/smaller than scale | F5 Font size creep | Align to hierarchy scale |
+| Low contrast detected | F6 Contrast failure | Adjust colors per WCAG |
+| Cards misaligned in grid | F7 Card misalignment | Fix grid-template/place-items |
+| Disjointed story across slides | F8 Narrative disconnect | Restructure with SCQA/arc |
 
-| Check | Rule |
-|---|---|
-| Icons not on title slides | No `background-image` with icons on `section.title` |
-| Icon positioning | Use `calc(100% - Npx)` from right, never `position: absolute` |
-| No footer clash | Icons positioned at `50%` vertical, not bottom |
-| Color matches theme | SVG hardcodes brand color or uses `currentColor` with parent `color` |
+### 5. Run structured VLM quality audit
 
-### 5. Generate quality report
+For semantic checks that pixel/rule analysis can't catch, use a vision-capable model on rendered slide screenshots.
+
+**Stage A — Per-Slide Visual Audit** (after rendering each slide):
+
+```
+Evaluate this presentation slide screenshot. Respond ONLY with JSON:
+{
+  "visual_balance": "good|cluttered_left|cluttered_right|top_heavy|bottom_heavy",
+  "text_readability": "good|too_small|too_dense|low_contrast",
+  "color_harmony": "good|mismatched|too_many_colors|muddy",
+  "whitespace_usage": "good|cramped|wasteful",
+  "data_visualization_clarity": "good|confusing|overstyled|unnecessary",
+  "content_density": "underfilled|appropriate|overfilled",
+  "specific_issues": ["up to 3 actionable issues"],
+  "repair_priority": "none|low|medium|high"
+}
+```
+
+**Stage B — Deck-Wide Narrative Audit** (after all slides):
+
+```
+Evaluate this full slide deck for narrative coherence. Check:
+1. Does the deck have a clear narrative arc (beginning, middle, end)?
+2. Is there a logical progression of ideas?
+3. Are there transition gaps (jumps between unrelated concepts)?
+4. Is the pacing consistent?
+5. Does the title slide set proper expectations?
+
+Respond ONLY with JSON:
+{
+  "narrative_arc": "PASS|WARN|FAIL",
+  "logical_progression": "PASS|WARN|FAIL",
+  "transition_gaps": ["specific gaps"],
+  "pacing_consistency": "PASS|WARN|FAIL",
+  "title_slide_alignment": "PASS|WARN|FAIL",
+  "suggested_restructuring": "description of changes"
+}
+```
+
+**VLM QA integration**: Save the VLM output as `qa-report.json`. Feed failures back into the agent context for targeted slide regeneration. Use VLM for **semantic** checks only (balance, harmony, narrative) — never for quantitative measurements (that's what CSS inspection is for).
+
+### 6. Generate quality report
 
 After analysis, provide:
 - Per-slide overflow warnings (❌)
-- Per-slide underuse warnings (⚠)  
+- Per-slide underuse warnings (⚠)
+- Typography rule violations (RULE-TY-*)
+- Layout rule violations (RULE-LY-*)  
+- Color/contrast violations (RULE-CO-*)
+- Density violations (RULE-DE-*)
+- Failure mode matches (F1-F8)
+- VLM semantic audit results
 - Font/color inconsistencies
 - Content density flags (too many bullets/words)
 
-### 5. Overflow detection explained
+### 7. Overflow detection explained
 
 The `analyze_slides.py` script uses these thresholds:
 - **Slide dimensions**: 960x540pt (Marp default 16:9)
