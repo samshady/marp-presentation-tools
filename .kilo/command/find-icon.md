@@ -1,29 +1,29 @@
 ---
 description: Search and fetch icons for Marp presentations from Iconify (free, 275k+ icons) or Noun Project
 ---
-Find icons for Marp presentations. Depends on `requests_oauthlib` for Noun Project — `pip install requests_oauthlib`.
+Find icons for Marp presentations. The script is at `$MARAP_ROOT/tools/icons/find-icon.py`. Set `$MARAP_ROOT` to point to this repo:
+```bash
+export MARP_ROOT=~/Development/marp-presentation-tools
+```
+
+Depends on `requests_oauthlib` for Noun Project — `pip install requests_oauthlib`.
 
 ## Search icons
 /find-icon search <query> [--limit N] [--source iconify|noun|both]
-
-Examples:
-- /find-icon search chart
-- /find-icon search "user profile" --limit 5
-- /find-icon search "user profile" --limit 5 --source noun
-- /find-icon collections (list icon sets)
+Runs: python3 $MARAP_ROOT/tools/icons/find-icon.py search <query> ...
 
 ## Fetch/download an icon
 /find-icon fetch <icon-id> [--source iconify|noun] [--color #HEX]
+Runs: python3 $MARAP_ROOT/tools/icons/find-icon.py fetch <icon-id> --source <src>
 
-Examples:
-- /find-icon fetch mdi:chart-bar --source iconify
-- /find-icon fetch mdi:account --source iconify -o ./assets
-- /find-icon fetch 12345 --source noun --color #295A97
+## After fetching
+```bash
+sed -i 's/currentColor/#6EC8FF/g' icons/*.svg          # color to brand
+sed -i 's|src="icons/|src="'$(pwd)'/icons/|g' *.md      # absolute paths for Marp
+```
 
-## For Marp presentations
-After downloading icons, reference them in your markdown:
-![](assets/mdi_chart-bar.svg)
-Or embed SVG inline in scoped styles.
+## Collections
+/find-icon collections
 
 Iconify: Free, no attribution required, 275k+ icons across 200+ sets.
 Noun Project: Attribution required (creative-commons-attribution), OAuth1 auth.

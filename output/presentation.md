@@ -12,7 +12,7 @@ footer: "Confidential and Proprietary"
 
 <style scoped>
 section {
-  background-image: url("/home/sam/Development/marp-presentation-tools/icons/material-symbols_rocket-launch.svg"), url("https://raw.githubusercontent.com/samshady/marp-presentation-tools/main/Cargobeamer_Logo.png");
+  background-image: url("icons/material-symbols_rocket-launch.svg"), url("https://raw.githubusercontent.com/samshady/marp-presentation-tools/main/Cargobeamer_Logo.png");
   background-repeat: no-repeat, no-repeat;
   background-position: calc(100% - 60px) 75%, 30px 30px;
   background-size: 120px auto, 150px auto;
@@ -117,7 +117,7 @@ section { display: block; }
 <div class="two-col icon-left">
 
 <div class="side-icon">
-  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_layers.svg" width="120" />
+  <img src="icons/material-symbols_layers.svg" width="120" />
 </div>
 
 <div class="main">
@@ -166,19 +166,19 @@ section { display: block; }
 <div class="vis-row">
 
 <div class="vis-card">
-  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_palette.svg" width="40" />
+  <img src="icons/material-symbols_palette.svg" width="40" />
   <h4>Palette</h4>
   <p>Base > Surface > Primary > Accent > Text</p>
 </div>
 
 <div class="vis-card">
-  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_bar-chart.svg" width="40" />
+  <img src="icons/material-symbols_bar-chart.svg" width="40" />
   <h4>Best Charts</h4>
   <p>Bar, line, scatter, stacked bar</p>
 </div>
 
 <div class="vis-card">
-  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_route.svg" width="40" />
+  <img src="icons/material-symbols_route.svg" width="40" />
   <h4>Avoid</h4>
   <p>Pie &gt;3 segments, 3D, dense tables</p>
 </div>
@@ -375,7 +375,7 @@ section { display: block; }
 <div class="image-slide">
 
 <div class="image-container">
-  <img src="/home/sam/Development/marp-presentation-tools/output/chart-visual.png" class="slide-image" />
+  <img src="output/chart-visual.png" class="slide-image" />
   <span class="image-caption">AI presentation tools ranked by quality feedback mechanism</span>
 </div>
 
@@ -445,19 +445,19 @@ section { display: block; }
 <div class="card-row">
 
 <div class="card">
-  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_layers.svg" width="40" class="card-icon" />
+  <img src="icons/material-symbols_layers.svg" width="40" class="card-icon" />
   <h3>sunbigfly/ppt-agent-skills</h3>
   <p>Multi-agent state machine, 4 subagents, JSON contract architecture, Pillow pixel QA, stateless resume</p>
 </div>
 
 <div class="card">
-  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_build.svg" width="40" class="card-icon" />
+  <img src="icons/material-symbols_build.svg" width="40" class="card-icon" />
   <h3>Akxan/ppt-agent-skill</h3>
   <p>26 production styles, 14 typography rules, 18 chart types (SVG), 8 failure modes with fix protocols</p>
 </div>
 
 <div class="card">
-  <img src="/home/sam/Development/marp-presentation-tools/icons/material-symbols_bar-chart.svg" width="40" class="card-icon" />
+  <img src="icons/material-symbols_bar-chart.svg" width="40" class="card-icon" />
   <h3>DeepSlide (arXiv)</h3>
   <p>Time-budgeted planner, Markov style inheritance, dual-scoreboard evaluation (artifact + delivery)</p>
 </div>

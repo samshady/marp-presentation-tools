@@ -11,6 +11,13 @@ description: |
 
 # marp-presentation-pipeline
 
+## Project root
+
+All paths reference `$MARAP_ROOT` which points to the repo:
+```bash
+export MARP_ROOT=~/Development/marp-presentation-tools
+```
+
 ## Stages
 
 The pipeline runs as 5 independent stages. Each stage produces artifacts on disk.
@@ -118,14 +125,14 @@ Read `output/plan.json` and `output/theme-contract.json`. Generate each slide as
    ```bash
    mkdir -p icons
    # Search for relevant icons per slide topic
-   python3 tools/icons/find-icon.py search "lightbulb" --source iconify --limit 3
-   python3 tools/icons/find-icon.py fetch material-symbols:lightbulb --source iconify -o icons
+   python3 $MARAP_ROOT/tools/icons/find-icon.py search "lightbulb" --source iconify --limit 3
+   python3 $MARAP_ROOT/tools/icons/find-icon.py fetch material-symbols:lightbulb --source iconify -o icons
    # Color all icons with the PRIMARY/ACCENT brand color (e.g. #6EC8FF for cargobeamer)
    # Use the light accent color, NOT the dark text color - icons need to pop on white bg
    sed -i 's/currentColor/#6EC8FF/g' icons/*.svg
-   # Use absolute paths in the markdown for icon references:
-   # sed -i 's|src="icons/|src="/home/sam/Development/marp-presentation-tools/icons/|g' output/presentation.md
-   # sed -i 's|url("icons/|url("/home/sam/Development/marp-presentation-tools/icons/|g' output/presentation.md
+   # Use $(pwd) to make absolute paths for Marp
+   sed -i 's|src="icons/|src="'$(pwd)'/icons/|g' output/presentation.md
+   sed -i 's|url("icons/|url("'$(pwd)'/icons/|g' output/presentation.md
    # Vary icon placement across slides - use inline img tags for 2-col layouts,
    # background-image for decoration, small icons inside cards
    ```
@@ -137,11 +144,8 @@ Run Stage 4 after Stage 3 completes. Two passes:
 
 **Pass A — Quantitative (CSS/DOM Inspection)**:
 ```bash
-# Render to HTML for DOM inspection
-npx @marp-team/marp-cli --html output/presentation.md -o output/presentation.html
-
 # Run pixel analysis
-python3 tools/presentation-quality/analyze_slides.py output/presentation.md --json > output/qa-report.json
+python3 $MARAP_ROOT/tools/presentation-quality/analyze_slides.py output/presentation.md --json > output/qa-report.json
 ```
 
 Check all hard rules from marp-presentation-quality:
@@ -156,9 +160,9 @@ Use a vision-capable model on rendered slide screenshots (from the analyze_slide
 
 **Fix loop**: For any QA failures, regenerate the affected slides in Stage 3 and re-run Stage 4. Loop up to 3 iterations maximum.
 
-**Cleanup**: After the final iteration passes QA, clean up temporary artifacts:
+**Cleanup**: After the final iteration passes QA, clean up temporary artifacts (but keep the output):
 ```bash
-rm -f output/slide-*.png icons/*.svg
+rm -f icons/*.svg
 rmdir icons 2>/dev/null; true
 ```
 

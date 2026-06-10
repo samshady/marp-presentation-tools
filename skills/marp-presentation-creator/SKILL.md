@@ -13,6 +13,14 @@ description: |
 
 # marp-presentation-creator
 
+## Project root
+
+This repository lives at `~/Development/marp-presentation-tools`. All paths below reference `$MARAP_ROOT = ~/Development/marp-presentation-tools`. When using these skills from a terminal, you can set:
+```bash
+export MARP_ROOT=~/Development/marp-presentation-tools
+```
+Or replace `$MARAP_ROOT` with the actual path to this repo wherever it is cloned.
+
 ## Assets
 
 - `assets/cargobeamer.css` — The cargobeamer Marp theme (synced from repo)
@@ -768,25 +776,40 @@ section {
 
 ### 14. Rendering
 
-**VS Code** — themes are registered globally via VS Code settings (remote URLs), so any `.md` with `theme: cargobeamer` or `theme: unihalle` just works.
+**VS Code** — themes are registered globally via VS Code settings (remote URLs), so any `.md` with `theme: cargobeamer` or `theme: unihalle` just works. No local theme files needed.
 
-**CLI** — use `--theme-set` pointing to the local CSS:
+**CLI** — use `--theme-set` pointing to the repo's theme CSS:
 ```bash
 # PDF with cargobeamer (from anywhere)
-npx @marp-team/marp-cli --pdf --theme-set ~/Development/marp-presentation-tools/themes/cargobeamer.css presentation.md
+npx @marp-team/marp-cli --pdf --theme-set $MARAP_ROOT/themes/cargobeamer.css presentation.md
 
 # PDF with unihalle
-npx @marp-team/marp-cli --pdf --theme-set ~/Development/marp-presentation-tools/themes/unihalle.css --allow-local-files presentation.md
+npx @marp-team/marp-cli --pdf --theme-set $MARAP_ROOT/themes/unihalle.css --allow-local-files presentation.md
 
 # PPTX
-npx @marp-team/marp-cli --pptx --image-scale 4 --theme-set ~/Development/marp-presentation-tools/themes/cargobeamer.css presentation.md
+npx @marp-team/marp-cli --pptx --image-scale 4 --theme-set $MARAP_ROOT/themes/cargobeamer.css presentation.md
 ```
+
+Note: the theme CSS files are pulled from this repo (themes/cargobeamer.css and themes/unihalle.css). Both include the correct logo backgrounds loaded from GitHub URLs, so the logo renders from any directory.
 
 ### 15. Icons and visual assets
 
 Icons are REQUIRED for visual variety. Every deck with 6+ slides should have decorative icons on at least 50% of content slides (not title slides). Use the icon search tool to find relevant icons for each slide's topic.
 
-**Important**: Use absolute paths for icon references. Marp resolves relative paths from the markdown file location, not the project root. Always use the full path: `src="/home/sam/Development/marp-presentation-tools/icons/icon.svg"` or `url("/home/sam/Development/marp-presentation-tools/icons/icon.svg")`.
+**Important for paths**: Marp resolves `<img src="...">` and `url("...")` relative to its CWD, not the markdown file location. When referencing icons or images:
+
+- If running `marp` from the same directory as your markdown: use `src="./icons/icon.svg"` (relative)
+- If running `marp` from a different directory: use `--allow-local-files` and absolute paths
+- Best practice: Save icons to `./icons/` next to your `.md` file, and set `sed` to fix paths after fetching
+
+After fetching icons with the find-icon tool, fix the references with:
+```bash
+# Replace relative paths with absolute ones for Marp
+sed -i 's|src="icons/|src="'$(pwd)'/icons/|g' presentation.md
+sed -i 's|url("icons/|url("'$(pwd)'/icons/|g' presentation.md
+```
+
+When asked to add icons to an existing presentation or create a new one, **detect the theme from the file's frontmatter** and use the correct primary color automatically:
 
 When asked to add icons to an existing presentation or create a new one, **detect the theme from the file's frontmatter** and use the correct primary color automatically:
 
@@ -796,25 +819,26 @@ When asked to add icons to an existing presentation or create a new one, **detec
 | `unihalle` | `theme: unihalle` | `#9FBF47` (MLU Green) |
 | `default` | `theme: default` | Ask or use `#295A97` |
 
-Use the icon tool to search and download icons. Requires `requests_oauthlib` for Noun Project: `pip install requests_oauthlib`. The tool supports two sources:
+Use the icon tool to search and download icons. The tool is at `$MARAP_ROOT/tools/icons/find-icon.py`. Requires `requests_oauthlib` for Noun Project: `pip install requests_oauthlib`. The tool supports two sources:
 
 **Iconify** (free, 275k+ icons, 200+ sets, no attribution needed):
 ```bash
-# Search
-python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py search robot --limit 5
+# Search (from anywhere)
+python3 $MARAP_ROOT/tools/icons/find-icon.py search robot --limit 5
 
 # Fetch SVG (save to ./icons directory)
 mkdir -p icons
-python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py fetch tabler:robot --source iconify -o ./icons
+python3 $MARAP_ROOT/tools/icons/find-icon.py fetch tabler:robot --source iconify -o ./icons
 
-# Fetch and save to a specific dir
-python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py fetch mdi:computer --source iconify -o ./icons
+# Batch color and fix paths
+sed -i 's/currentColor/#6EC8FF/g' icons/*.svg
+sed -i 's|src="icons/|src="'$(pwd)'/icons/|g' *.md
 ```
 
 **Noun Project** (requires attribution, supports custom colors):
 ```bash
-python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py search train --source noun
-python3 ~/Development/marp-presentation-tools/tools/icons/find-icon.py fetch 12345 --source noun --color #295A97
+python3 $MARAP_ROOT/tools/icons/find-icon.py search train --source noun
+python3 $MARAP_ROOT/tools/icons/find-icon.py fetch 12345 --source noun --color #295A97
 ```
 
 **Coloring icons**: Edit the downloaded SVG using sed. Use `#6EC8FF` (primary light blue) for cargobeamer icons so they pop on the white background - NOT `#00132B` which looks nearly black. For unihalle use `#9FBF47`:

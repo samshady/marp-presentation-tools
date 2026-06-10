@@ -11,11 +11,20 @@ description: |
 
 # marp-presentation-quality
 
+## Project root
+
+This repository lives at `~/Development/marp-presentation-tools`. Set `$MARAP_ROOT` to point there:
+```bash
+export MARP_ROOT=~/Development/marp-presentation-tools
+```
+
 ## Scripts
 
-- `scripts/analyze_slides.py` — Render a Marp markdown file to PDF, convert to
-  images, and analyze pixel content for overflow/underuse. Exits with code 1
-  if any overflow detected. Supports `--json` for pipeline contract output.
+The analysis script is at `$MARAP_ROOT/tools/presentation-quality/analyze_slides.py`. Run it from any directory:
+```bash
+python3 $MARAP_ROOT/tools/presentation-quality/analyze_slides.py presentation.md
+python3 $MARAP_ROOT/tools/presentation-quality/analyze_slides.py presentation.md --json
+```
 
 ## References
 
@@ -32,12 +41,12 @@ When asked to validate or fix a Marp presentation:
 ### 1. Analyze slides for overflow
 
 ```bash
-python3 scripts/analyze_slides.py presentation.md
+python3 $MARAP_ROOT/tools/presentation-quality/analyze_slides.py presentation.md
 ```
 
 For machine-readable output (pipeline consumption):
 ```bash
-python3 scripts/analyze_slides.py presentation.md --json > qa-report.json
+python3 $MARAP_ROOT/tools/presentation-quality/analyze_slides.py presentation.md --json > qa-report.json
 ```
 
 This will:
@@ -96,8 +105,8 @@ Use `references/slide-rules.md` to verify these hard rules. Check each by inspec
 
 For UJM slide layout fixes in Abschlusspresentation:
 ```bash
-python3 Tools/slide-fixes/fix_slides.py
-python3 Tools/slide-fixes/fix_slides2.py
+python3 $MARAP_ROOT/tools/slide-fixes/fix_slides.py
+python3 $MARAP_ROOT/tools/slide-fixes/fix_slides2.py
 ```
 
 ### 4. Check failure modes (F1-F8 catalog)
