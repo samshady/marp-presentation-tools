@@ -610,9 +610,6 @@ WARNING: background-image places icons BEHIND text. Only use this for very faint
 .two-col { display: flex; gap: 30px; margin-top: 10px; }
 .main { flex: 3; }
 .side-icon { flex: 1; display: flex; align-items: center; justify-content: center; }
-/* Fix bullet spacing: theme's ::before margin makes text stick to dash */
-ul { padding-left: 28px; }
-ul li::before { margin-left: -24px; }
 </style>
 ```
 

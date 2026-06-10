@@ -22,6 +22,7 @@ With default padding of 50px on each side:
 ## Content Formatting Rules
 
 - **RULE-CF-01:** Never use em dashes (---) or en dashes (--) in slide content. Use a regular hyphen (-) or colon (:) instead.
+- **RULE-CF-02:** Bullet spacing: the theme handles `::before` pseudo-element spacing via `padding-right: 8px`. Do not add inline `padding-left` or `margin-left` overrides on `ul` or `li::before` in scoped styles — they do not override theme pseudo-element selectors.
 
 ## Typography Rules
 

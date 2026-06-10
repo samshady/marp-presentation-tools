@@ -99,6 +99,7 @@ ul li::before {
 	display: inline-block;
 	width: 14px;
 	margin-left: -14px;
+	padding-right: 8px;
 }
 
 ol {

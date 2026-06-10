@@ -58,8 +58,6 @@ section {
 .two-col { display: flex; gap: 30px; margin-top: 10px; }
 .main { flex: 3; }
 .side-icon { flex: 1; display: flex; align-items: center; justify-content: center; }
-ul { padding-left: 28px; }
-ul li::before { margin-left: -24px; }
 </style>
 
 ---
@@ -88,8 +86,6 @@ ul li::before { margin-left: -24px; }
 .main { flex: 3; }
 .side-icon { flex: 1; display: flex; align-items: center; justify-content: center; }
 .icon-left .side-icon { order: -1; }
-ul { padding-left: 28px; }
-ul li::before { margin-left: -24px; }
 </style>
 
 ---
@@ -462,8 +458,6 @@ section { display: block; }
 .two-col { display: flex; gap: 30px; margin-top: 10px; }
 .main { flex: 3; }
 .side-icon { flex: 1; display: flex; align-items: center; justify-content: center; }
-ul { padding-left: 28px; }
-ul li::before { margin-left: -24px; }
 </style>
 
 ---
