@@ -93,13 +93,9 @@ ul {
 }
 
 ul li::before {
-	content: "–";
+	content: "– ";
 	color: #6EC8FF;
 	font-weight: bold;
-	display: inline-block;
-	width: 14px;
-	margin-left: -14px;
-	padding-right: 8px;
 }
 
 ol {

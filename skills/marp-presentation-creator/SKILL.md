@@ -539,6 +539,8 @@ npx @marp-team/marp-cli --pptx --image-scale 4 --theme-set ~/Development/marp-pr
 
 Icons are REQUIRED for visual variety. Every deck with 6+ slides should have decorative icons on at least 50% of content slides (not title slides). Use the icon search tool to find relevant icons for each slide's topic.
 
+**Important**: Save icons to a directory at the same level as your markdown file (e.g., `./icons/` relative to the `.md` file). Marp resolves `<img src="icons/icon.svg">` relative to the markdown file location.
+
 When asked to add icons to an existing presentation or create a new one, **detect the theme from the file's frontmatter** and use the correct primary color automatically:
 
 | Theme | Frontmatter `theme:` | Primary accent color |

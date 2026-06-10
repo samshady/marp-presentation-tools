@@ -114,7 +114,7 @@ Read `output/plan.json` and `output/theme-contract.json`. Generate each slide as
    - Never use em dashes or en dashes in content text
    - Vary layout types across slides (mix: flat lists, tables, flex cards, icon + list)
    - Keep bullets short - under 10 words each, scannable phrases not full sentences
-3. **Source and add decorative icons (MANDATORY)**: For decks with 6+ slides, add background-image icons on at least 50% of content slides:
+3. **Source and add decorative icons (MANDATORY)**: For decks with 6+ slides, add background-image icons on at least 50% of content slides. Save icons to `./icons/` relative to the output markdown file:
    ```bash
    mkdir -p icons
    # Search for relevant icons per slide topic
