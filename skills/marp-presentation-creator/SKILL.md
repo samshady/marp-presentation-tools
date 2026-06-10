@@ -1,14 +1,12 @@
 ---
 name: marp-presentation-creator
 description: |
-  Create or modify Marp markdown presentations for CargoBeamer (cargobeamer
-  theme) or MLU Halle-Wittenberg (unihalle theme). Also handles adding icons
-  and visual assets to existing presentations by detecting the theme from
-  frontmatter. Supports scoped styles for common slide layouts (title, agenda,
-  cards, tables), brand-aligned colors and typography, slide structure best
-  practices, and exporting to PDF and PPTX. This skill should be used when the
-  user asks to create, write, generate, or add icons/assets to a Marp
-  presentation for either CargoBeamer or university.
+  SUB-SKILL: generates individual slides for Marp presentations. Used
+  internally by marp-presentation-pipeline. Not typically loaded directly
+  unless the user only needs to modify an existing slide's layout, add
+  icons, or regenerate a single slide. Handles scoped styles, 10 layout
+  templates, icon fetching, brand colors, and PowerPoint/PDF export.
+  Supports cargobeamer and unihalle themes.
 ---
 
 # marp-presentation-creator

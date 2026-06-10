@@ -1,12 +1,13 @@
 ---
 name: marp-presentation-pipeline
 description: |
-  Orchestrate a structured multi-agent pipeline for end-to-end Marp presentation
-  creation. Runs 5 stages (Interview → Plan → Style → Generate → QA) with JSON
-  contract passing between stages, subagent isolation, and stateless resume.
-  Produces a polished, QA-validated Marp markdown presentation ready for PDF/PPTX
-  export. This skill should be used when the user wants a polished, QA-validated
-  presentation created from scratch using a structured multi-stage workflow.
+  ENTRY POINT for creating full Marp presentations from scratch. Orchestrates
+  a 5-stage multi-agent pipeline (Interview → Plan → Style → Generate → QA)
+  with JSON contract passing and stateless resume. Delegates to
+  marp-presentation-creator, marp-presentation-designer, and
+  marp-presentation-quality internally. Use this skill when the user says
+  "create a presentation", "make a deck", "build slides", or "present
+  [topic]". Produces QA-validated Marp markdown ready for PDF/PPTX export.
 ---
 
 # marp-presentation-pipeline

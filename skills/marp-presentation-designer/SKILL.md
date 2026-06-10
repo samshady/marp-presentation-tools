@@ -1,13 +1,11 @@
 ---
 name: marp-presentation-designer
 description: |
-  Generate and manage visual design contracts for Marp presentations. Creates
-  a formal theme-contract.json encoding the full design system (typography,
-  spacing, colors, layout templates, chart palettes) for a deck. Can extract
-  a contract from existing Marp theme CSS files or generate one from brand
-  guidelines. The contract is consumed by marp-presentation-creator for
-  consistent per-slide generation and by marp-presentation-quality for
-  quantitative CSS/DOM rule checking.
+  SUB-SKILL: generates visual design contracts (theme-contract.json) for
+  Marp presentations. Used internally by marp-presentation-pipeline in
+  Stage 2. Can be loaded directly when the user says "define a style for
+  this deck" or "generate a design contract". Encodes typography scale,
+  color palette, spacing grid, and layout templates.
 ---
 
 # marp-presentation-designer

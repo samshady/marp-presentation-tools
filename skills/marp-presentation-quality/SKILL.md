@@ -1,12 +1,11 @@
 ---
 name: marp-presentation-quality
 description: |
-  Validate and fix Marp presentation slides for visual quality. Detects text
-  overflow, underused space, inconsistent styling, and content density issues
-  using pixel analysis, CSS/DOM inspection rules, and structured VLM review.
-  Enforces typography hard rules, WCAG color contrast, layout constraints,
-  and failure mode checks (F1-F8). This skill should be used when the user
-  asks to check, validate, fix, review, or ensure quality of a Marp presentation.
+  SUB-SKILL: validates and fixes Marp presentation visual quality. Used
+  internally by marp-presentation-pipeline in Stage 4. Can be loaded
+  directly when the user says "check this presentation", "run QA", or
+  "fix the slides". Detects overflow, underuse, enforces typography rules,
+  WCAG contrast, layout constraints, and failure modes (F1-F8).
 ---
 
 # marp-presentation-quality
