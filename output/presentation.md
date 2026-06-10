@@ -92,56 +92,214 @@ section {
 
 # Color, Accessibility & Data Viz
 
-<div class="two-col">
+<div class="data-row">
 
-<div class="main">
+<div class="data-card">
+  <span class="stat">4.5:1</span>
+  <span class="stat-label">WCAG AA body contrast</span>
+</div>
 
-- **Palette structure**: Base > Surface > Primary > Accent > Text (3 levels)
-- **WCAG AA**: 4.5:1 body, 3:1 large text - avoid red-green pairs
-- **Max 5 colors per slide**, decorative gradients excluded
-- **Best charts**: bar (comparison), line (trends), scatter (correlation)
-- **Avoid**: pie charts over 3 segments, 3D charts, dense tables
+<div class="data-card">
+  <span class="stat">3:1</span>
+  <span class="stat-label">Large text minimum</span>
+</div>
+
+<div class="data-card">
+  <span class="stat">5</span>
+  <span class="stat-label">Max colors per slide</span>
+</div>
 
 </div>
 
-<div class="side-icon">
-  <img src="icons/material-symbols_palette.svg" width="130" />
+><span style="color:#6EC8FF; font-weight:700">Principle:</span> Pair icons, patterns, or labels with color. Never rely on color alone to convey information (WCAG 2.1 SC 1.4.1).
+
+<div class="vis-row">
+
+<div class="vis-card">
+  <img src="icons/material-symbols_palette.svg" width="40" />
+  <h4>Palette</h4>
+  <p>Base > Surface > Primary > Accent > Text</p>
+</div>
+
+<div class="vis-card">
+  <img src="icons/material-symbols_bar-chart.svg" width="40" />
+  <h4>Best Charts</h4>
+  <p>Bar, line, scatter, stacked bar</p>
+</div>
+
+<div class="vis-card">
+  <img src="icons/material-symbols_route.svg" width="40" />
+  <h4>Avoid</h4>
+  <p>Pie &gt;3 segments, 3D, dense tables</p>
 </div>
 
 </div>
 
 <style scoped>
-.two-col { display: flex; gap: 30px; margin-top: 10px; }
-.main { flex: 3; }
-.side-icon { flex: 1; display: flex; align-items: center; justify-content: center; }
+section { display: block; }
+.data-row {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.data-card {
+  flex: 1 1 0;
+  text-align: center;
+  background: #FAFAFB;
+  border: 0.75px solid #6EC8FF;
+  border-radius: 10px;
+  padding: 16px;
+}
+.stat {
+  display: block;
+  font-size: 42pt;
+  font-weight: 700;
+  color: #6EC8FF;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  display: block;
+  font-size: 13pt;
+  line-height: 1.3;
+  color: #00132B;
+}
+blockquote {
+  margin: 0 0 18px 0;
+}
+.vis-row {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+}
+.vis-card {
+  flex: 1 1 0;
+  background: #FAFAFB;
+  border: 0.75px solid #B6E3FF;
+  border-radius: 8px;
+  padding: 14px;
+}
+.vis-card h4 {
+  font-size: 14pt;
+  font-weight: 700;
+  color: #00132B;
+  margin: 6px 0 4px 0;
+}
+.vis-card p {
+  font-size: 12pt;
+  margin: 0;
+  line-height: 1.4;
+  color: #000;
+}
 </style>
 
 ---
 
 # Narrative Structure & Failure Modes
 
-<div class="two-col">
+<div class="asym-row">
 
-<div class="main">
-
-- **SCQA**: Situation > Complication > Question > Answer (McKinsey)
-- **Pacing**: 1 slide per 2 minutes, 15 min talk = 7-8 slides
-- **F2 Overfill** - content overflow, reduce count
-- **F6 Contrast failure** - below WCAG threshold
-- **F8 Narrative disconnect** - no story arc, restructure with SCQA
-
+<div class="asym-main">
+  <span class="asym-number">SCQA</span>
+  <span class="asym-desc">Situation > Complication > Question > Answer</span>
+  <hr class="asym-divider" />
+  <span class="asym-number">1:2</span>
+  <span class="asym-desc">Pacing ratio - 1 slide per 2 minutes, 15 min = 7-8 slides</span>
 </div>
 
-<div class="side-icon">
-  <img src="icons/material-symbols_route.svg" width="130" />
+<div class="asym-side">
+  <div class="fail-card f2">
+    <span class="fail-id">F2</span>
+    <span class="fail-name">Overfill</span>
+    <span class="fail-fix">Reduce font or count</span>
+  </div>
+  <div class="fail-card f6">
+    <span class="fail-id">F6</span>
+    <span class="fail-name">Contrast Failure</span>
+    <span class="fail-fix">Adjust colors per WCAG</span>
+  </div>
+  <div class="fail-card f8">
+    <span class="fail-id">F8</span>
+    <span class="fail-name">Narrative Disconnect</span>
+    <span class="fail-fix">Restructure with SCQA</span>
+  </div>
 </div>
 
 </div>
 
 <style scoped>
-.two-col { display: flex; gap: 30px; margin-top: 10px; }
-.main { flex: 3; }
-.side-icon { flex: 1; display: flex; align-items: center; justify-content: center; }
+section { display: block; }
+.asym-row {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  margin-top: 10px;
+}
+.asym-main {
+  flex: 2;
+  padding: 24px;
+  background: #FAFAFB;
+  border: 1.5px solid #6EC8FF;
+  border-radius: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.asym-number {
+  display: block;
+  font-size: 36pt;
+  font-weight: 700;
+  color: #6EC8FF;
+  line-height: 1.1;
+}
+.asym-desc {
+  display: block;
+  font-size: 15pt;
+  line-height: 1.4;
+  margin-top: 6px;
+  color: #000;
+}
+.asym-divider {
+  border: none;
+  border-top: 1px solid #B6E3FF;
+  margin: 16px auto;
+  width: 60%;
+}
+.asym-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.fail-card {
+  flex: 1;
+  background: #FAFAFB;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 4px solid;
+}
+.f2 { border-left-color: #EF4444; }
+.f6 { border-left-color: #F59E0B; }
+.f8 { border-left-color: #6EC8FF; }
+.fail-id {
+  font-size: 11pt;
+  font-weight: 700;
+  color: #00132B;
+}
+.fail-name {
+  font-size: 16pt;
+  font-weight: 600;
+  color: #000;
+}
+.fail-fix {
+  font-size: 12pt;
+  color: #666;
+}
 </style>
 
 ---

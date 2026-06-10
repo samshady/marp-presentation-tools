@@ -248,7 +248,214 @@ section { display: block; }
 
 Use this layout when you have 1 key message + 2 supporting details. Best for: findings, recommendations, conclusions, call-to-action slides.
 
-### 5. Typography system
+### 6. Stat-row layout (data-focused)
+
+For presenting key metrics or WCAG criteria, use a top row of stat cards + optional blockquote + bottom row of detail cards:
+
+```html
+# Slide Title
+
+<div class="data-row">
+
+<div class="data-card">
+  <span class="stat">4.5:1</span>
+  <span class="stat-label">WCAG AA body contrast</span>
+</div>
+
+<div class="data-card">
+  <span class="stat">3:1</span>
+  <span class="stat-label">Large text minimum</span>
+</div>
+
+</div>
+
+><span style="color:#6EC8FF; font-weight:700">Principle:</span> Key guidance text here.
+
+<div class="vis-row">
+
+<div class="vis-card">
+  <img src="icons/icon.svg" width="40" />
+  <h4>Category</h4>
+  <p>Brief description</p>
+</div>
+
+<div class="vis-card">
+  <img src="icons/icon.svg" width="40" />
+  <h4>Category</h4>
+  <p>Brief description</p>
+</div>
+
+</div>
+
+<style scoped>
+section { display: block; }
+.data-row {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.data-card {
+  flex: 1 1 0;
+  text-align: center;
+  background: #FAFAFB;
+  border: 0.75px solid #6EC8FF;
+  border-radius: 10px;
+  padding: 16px;
+}
+.stat {
+  display: block;
+  font-size: 42pt;
+  font-weight: 700;
+  color: #6EC8FF;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  display: block;
+  font-size: 13pt;
+  line-height: 1.3;
+  color: #00132B;
+}
+blockquote {
+  margin: 0 0 18px 0;
+}
+.vis-row {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+}
+.vis-card {
+  flex: 1 1 0;
+  background: #FAFAFB;
+  border: 0.75px solid #B6E3FF;
+  border-radius: 8px;
+  padding: 14px;
+}
+.vis-card h4 {
+  font-size: 14pt;
+  font-weight: 700;
+  color: #00132B;
+  margin: 6px 0 4px 0;
+}
+.vis-card p {
+  font-size: 12pt;
+  margin: 0;
+  line-height: 1.4;
+  color: #000;
+}
+</style>
+```
+
+Use this layout for data-heavy content: metrics, specifications, criteria, benchmarks.
+
+### 7. Asymmetric callout + stacked cards layout
+
+For pairing a main emphasis point with supporting details on the side:
+
+```html
+# Slide Title
+
+<div class="asym-row">
+
+<div class="asym-main">
+  <span class="asym-number">SCQA</span>
+  <span class="asym-desc">Situation > Complication > Question > Answer</span>
+  <hr class="asym-divider" />
+  <span class="asym-number">1:2</span>
+  <span class="asym-desc">Pacing ratio - 1 slide per 2 minutes</span>
+</div>
+
+<div class="asym-side">
+  <div class="asym-card">
+    <span class="card-id">F2</span>
+    <span class="card-name">Overfill</span>
+    <span class="card-fix">Reduce content</span>
+  </div>
+  <div class="asym-card">
+    <span class="card-id">F6</span>
+    <span class="card-name">Contrast Failure</span>
+    <span class="card-fix">Adjust colors</span>
+  </div>
+</div>
+
+</div>
+
+<style scoped>
+section { display: block; }
+.asym-row {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  margin-top: 10px;
+}
+.asym-main {
+  flex: 2;
+  padding: 24px;
+  background: #FAFAFB;
+  border: 1.5px solid #6EC8FF;
+  border-radius: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.asym-number {
+  display: block;
+  font-size: 36pt;
+  font-weight: 700;
+  color: #6EC8FF;
+  line-height: 1.1;
+}
+.asym-desc {
+  display: block;
+  font-size: 15pt;
+  line-height: 1.4;
+  margin-top: 6px;
+  color: #000;
+}
+.asym-divider {
+  border: none;
+  border-top: 1px solid #B6E3FF;
+  margin: 16px auto;
+  width: 60%;
+}
+.asym-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.asym-card {
+  flex: 1;
+  background: #FAFAFB;
+  border-radius: 8px;
+  padding: 12px;
+  border-left: 4px solid #6EC8FF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.card-id {
+  font-size: 11pt;
+  font-weight: 700;
+  color: #00132B;
+}
+.card-name {
+  font-size: 16pt;
+  font-weight: 600;
+  color: #000;
+}
+.card-fix {
+  font-size: 12pt;
+  color: #666;
+}
+</style>
+```
+
+Use this for: process breakdowns, concept + examples, principle + failure modes, question + answers.
+
+### 8. Typography system
 
 Use the 7-level hierarchy scale from `references/slide-rules.md`. Hard rules:
 - Body text: ≥14px and ≤24px, line-height 1.4-1.6
@@ -418,17 +625,19 @@ WARNING: background-image places icons BEHIND text. Only use this for very faint
 - For card layouts, include the icon **inside the card** as a small `<img>` (40-50px) at the top
 - Use `flex: 1 1 0` not `flex: 1` on flexbox card children to ensure equal column widths
 
-### 10. Slide limits per section type
+### 12. Slide limits per section type
 
 | Type | Max bullets | Max words | Notes |
 |---|---|---|---|
 | Title | 0 | 15 | Just title + subtitle + author |
 | Agenda | 5-6 | 60 | One line per item |
 | Content (2-col) | 5-6 | 60 | Short scannable bullets |
+| Stat-row | 3 stat cards | 50 | Key metrics with blockquote + vis cards below |
+| Asymmetric | 3 stacked cards | 60 | Main callout left + details right |
 | Table | 6 rows | 80 | Keep columns to 4 max |
 | Cards | 3-5 cards | 40 | 3-4 short items per card |
 | Callout / emphasis | 2 mini-cards | 50 | Centered key finding + support |
 | Data callout | 0 | 20 | Big number + context line |
 | Quote | 0 | 30 | Attribution required |
 
-**Layout variety rule**: Use at least 4 different layout types in any deck of 8+ slides. Never have more than 2 consecutive slides with the same layout.
+**Layout variety rule**: Use at least 5 different layout types in any deck of 8+ slides. Never have more than 2 consecutive slides with the same layout.
