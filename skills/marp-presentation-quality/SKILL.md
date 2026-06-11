@@ -25,6 +25,21 @@ python3 $MARAP_ROOT/tools/presentation-quality/analyze_slides.py presentation.md
 python3 $MARAP_ROOT/tools/presentation-quality/analyze_slides.py presentation.md --json
 ```
 
+The spelling checker is at `$MARAP_ROOT/tools/presentation-quality/check_spelling.py`. Requires `hunspell` with the target language dictionary installed:
+```bash
+# Check spelling (detects language from frontmatter lang: field)
+python3 $MARAP_ROOT/tools/presentation-quality/check_spelling.py presentation.md
+
+# Machine-readable output
+python3 $MARAP_ROOT/tools/presentation-quality/check_spelling.py presentation.md --json
+
+# Auto-fix known typos
+python3 $MARAP_ROOT/tools/presentation-quality/check_spelling.py presentation.md --fix
+
+# Specify language explicitly
+python3 $MARAP_ROOT/tools/presentation-quality/check_spelling.py presentation.md --lang en_GB
+```
+
 ## References
 
 - `references/slide-rules.md` — Full constraint definitions (dimensions, typography,
@@ -100,7 +115,26 @@ Use `references/slide-rules.md` to verify these hard rules. Check each by inspec
 | DE-02 | Chart budget | ≤2 charts per slide | Move charts to separate slides |
 | DE-03 | Decoration ratio | ≤20% of DOM nodes | Remove excess decorative elements |
 
-### 3. Run fix scripts for known patterns
+### 3. Run spelling check
+
+Check every slide for misspellings using hunspell. The tool detects the language from the markdown frontmatter (`lang:` field) or defaults to en_US.
+
+```bash
+python3 $MARAP_ROOT/tools/presentation-quality/check_spelling.py presentation.md
+
+# Auto-fix common typos and re-check
+python3 $MARAP_ROOT/tools/presentation-quality/check_spelling.py presentation.md --fix
+```
+
+If the presentation is in German (unihalle/MLU context), install the German dictionary:
+```bash
+sudo apt install hunspell-de-de
+python3 $MARAP_ROOT/tools/presentation-quality/check_spelling.py presentation.md --lang de_DE
+```
+
+The tool skips code blocks, style blocks, URLs, acronyms (AI, WCAG, VLM, etc.), and words in its custom dictionary. Known typos (e.g. "teh" -> "the") are auto-fixable with `--fix`.
+
+### 4. Run fix scripts for known patterns
 
 For UJM slide layout fixes in Abschlusspresentation:
 ```bash
@@ -108,7 +142,7 @@ python3 $MARAP_ROOT/tools/slide-fixes/fix_slides.py
 python3 $MARAP_ROOT/tools/slide-fixes/fix_slides2.py
 ```
 
-### 4. Check failure modes (F1-F8 catalog)
+### 5. Check failure modes (F1-F8 catalog)
 
 Cross-reference detected issues against the failure mode catalog:
 | Issue Pattern | Likely Failure Mode | Fix Protocol |
@@ -122,7 +156,7 @@ Cross-reference detected issues against the failure mode catalog:
 | Cards misaligned in grid | F7 Card misalignment | Fix grid-template/place-items |
 | Disjointed story across slides | F8 Narrative disconnect | Restructure with SCQA/arc |
 
-### 5. Check visual variety
+### 6. Check visual variety
 
 After running all quantitative checks, verify the deck has adequate visual variety:
 
@@ -133,7 +167,7 @@ After running all quantitative checks, verify the deck has adequate visual varie
 | No boxes/borders on all slides | Not every slide should have card borders | Mix flat bullet list slides with card grid slides |
 | Slide layouts vary (not all same format) | At least 3 different layout types | Alternate: flat list, table, flex cards, icon + list |
 
-### 6. Run structured VLM quality audit
+### 7. Run structured VLM quality audit
 
 For semantic checks that pixel/rule analysis can't catch, use a vision-capable model on rendered slide screenshots.
 
@@ -176,12 +210,13 @@ Respond ONLY with JSON:
 
 **VLM QA integration**: Save the VLM output as `qa-report.json`. Feed failures back into the agent context for targeted slide regeneration. Use VLM for **semantic** checks only (balance, harmony, narrative) — never for quantitative measurements (that's what CSS inspection is for).
 
-### 7. Generate quality report
+### 8. Generate quality report
 
 After analysis, provide:
 - Per-slide overflow warnings (❌)
 - Per-slide underuse warnings (⚠)
 - Content formatting violations (RULE-CF-01: em dash, RULE-CF-02: bullet spacing)
+- Spelling errors (per-slide report)
 - Typography rule violations (RULE-TY-*)
 - Layout rule violations (RULE-LY-*)  
 - Color/contrast violations (RULE-CO-*)
@@ -191,7 +226,7 @@ After analysis, provide:
 - VLM semantic audit results
 - Content density flags (too many bullets/words/long sentences)
 
-### 8. Overflow detection explained
+### 9. Overflow detection explained
 
 The `analyze_slides.py` script uses these thresholds:
 - **Slide dimensions**: 960x540pt (Marp default 16:9)

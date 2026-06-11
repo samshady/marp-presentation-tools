@@ -156,6 +156,13 @@ Check all hard rules from marp-presentation-quality:
 - RULE-DE-01 through DE-03 (density)
 - Cross-reference failures against the F1-F8 failure mode catalog
 
+**Pass A2 — Spelling**:
+```bash
+python3 $MARAP_ROOT/tools/presentation-quality/check_spelling.py output/presentation.md --json > output/spelling-report.json
+# Auto-fix if any found
+python3 $MARAP_ROOT/tools/presentation-quality/check_spelling.py output/presentation.md --fix
+```
+
 **Pass B — Semantic (VLM Audit)**:
 Use a vision-capable model on rendered slide screenshots (from the analyze_slides.py pipeline) with the structured VLM prompts from the quality skill.
 
